@@ -10,3 +10,15 @@ sudo apt-get install mosquitto-clients
 
 echo "Install mqtt client or python"
 pip install paho-mqtt --user
+
+# I2C tool
+sudo apt-get install -y python-smbus
+sudo apt-get install -y i2c-tools
+
+# Install Adafruit GPIO
+sudo apt-get install build-essential python-pip python-dev python-smbus git
+git clone https://github.com/adafruit/Adafruit_Python_GPIO.git
+cd Adafruit_Python_GPIO
+sudo python setup.py install
+cd ..
+rm -rfv Adafruit_Python_GPIO
