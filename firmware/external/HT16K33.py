@@ -46,6 +46,7 @@ class HT16K33(object):
             i2c = I2C
         self._device = i2c.get_i2c_device(address, **kwargs)
         self.buffer = bytearray([0]*16)
+        self.read_display()
         print (self.buffer)
 
     def begin(self):
@@ -90,6 +91,10 @@ class HT16K33(object):
         else:
             # Turn on the speciried LED (set bit to one).
             self.buffer[pos] |= (1 << offset)
+    def read_display(self):
+        """Read display to buffer."""
+        for i, value in enumerate(self.buffer):
+            self.buffer[i] = self._device.readU8(i)
 
     def write_display(self):
         """Write display buffer to display hardware."""

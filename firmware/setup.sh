@@ -1,6 +1,11 @@
 # Script to install required packages
+# SEtup ssh
+# Setup network
+# SEtup keyboard
+# SEtup i2c
 
 echo "Install mqtt broker"
+sudo apt-get install -y software-properties-common # to get apt-add-repo
 sudo apt-add-repository ppa:mosquitto-dev/mosquitto-ppa
 sudo apt-get update
 sudo apt-get install mosquitto
