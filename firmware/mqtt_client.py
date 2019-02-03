@@ -1,25 +1,36 @@
 import paho.mqtt.client as mqtt
-import os, urlparse
+import os
+import json
+import threading
 
 class MQTTClient(mqtt.Client):
-    def __init__(self, hostname="localhost", port="1883", callback_dict=None):
-        mqtt.Client.__init__(self)
+    def __init__(self, hostname="localhost", port=1883, callback_dict=None):
+        super(MQTTClient, self).__init__()
         # self.username_pw_set("", "")
         self.connect(hostname, port)
 
-        self._callback_dict = callback_dict # key, value pair; key -topic, value - function
-        
+        self._callback_dict = {}# key, value pair; key -topic, value - function
+    
     # Define event callbacks
     def on_connect(self, client, userdata, flags, rc):
         print("rc: " + str(rc))
 
     def on_message(self, client, obj, msg):
         print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-        if msg.topic in self._callback_dict.keys():
-            callback = self._callback_dict[msg.topic]
+
+        topic = msg.topic.split("/")
+        user_id = topic[0]
+        key = key = "".join(topic[1:])
+
+        # To do: Add regex to check topic is of right format
+        if key in self._callback_dict.keys():
+            callback = self._callback_dict[key]
+            payload = json.loads(msg.payload)
             try:
-                callback(obj, msg.payload)
+                thread = threading.Thread(target=callback, args=[obj, user_id, payload])
+                thread.start()
             except Exception as e:
+                print(e)
                 print("Poorly constructed callback")
         else:
             pass
@@ -32,11 +43,27 @@ class MQTTClient(mqtt.Client):
 
     def on_log(self, client, obj, level, string):
         print("Log: " + string)
+    
+    # Subscribe to topic and assign callback
+    def subscribe(self, topic, callback):
+        try:
+            key = "".join(topic.split("/")[1:])
+            self._callback_dict[key] = callback
+            super().subscribe(topic, 0)
+        except Exception as e:
+            print ("Topic not in right format")
+    
+    def publish(self, topic, payload):
+        payload = json.dumps(payload)
+        super().publish(topic, payload)
+        
+def test(obj, payload):
+    print (payload)
 
 def main():
     topic =  'test'
     mqttc = MQTTClient()
-    mqttc.subscribe(topic, 0)
+    mqttc.subscribe(topic, test)
     rc = 0
     while rc == 0:
         rc = mqttc.loop()

@@ -1,8 +1,9 @@
 # Script to install required packages
-# SEtup ssh
+# Setup ssh
 # Setup network
-# SEtup keyboard
-# SEtup i2c
+# Setup keyboard
+# Setup i2c
+# Connect to eduroam?
 
 echo "Install mqtt broker"
 sudo apt-get install -y software-properties-common # to get apt-add-repo

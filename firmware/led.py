@@ -7,6 +7,7 @@ class LedController(HT16K33.HT16K33):
     def __init__(self, **kwargs):
         super(LedController, self).__init__(**kwargs)
         self.begin()
+        self.set_blink(HT16K33.HT16K33_BLINK_2HZ)
         self.write_display()
 
     def reset(self):
@@ -39,6 +40,16 @@ def clear_all(args):
     led = LedController()
     led.reset()
 
+def blink(args):
+    led = LedController()
+    value = args.value[0]
+    if value:
+        freq = HT16K33.HT16K33_BLINK_2HZ
+    else:
+        freq = 0
+    led.set_blink(freq)
+    led.write_display()
+
 def main():
     parser = argparse.ArgumentParser(description='Process some integers.')
     commands = parser.add_subparsers(title='sub-commands')
@@ -52,6 +63,12 @@ def main():
     set_parser.set_defaults(func=set_led)
     clear_parser = commands.add_parser('clear', help='clear all leds')
     clear_parser.set_defaults(func=clear_all)
+
+    blink_parser = commands.add_parser('blink', help='set blink on/off')
+    blink_parser.add_argument('--value', '-v', type=int, nargs=1,
+                        default=0,
+                        help='1 to turn on, 0 to tuen off')
+    blink_parser.set_defaults(func=blink)
     
     args = parser.parse_args()
     args.func(args)

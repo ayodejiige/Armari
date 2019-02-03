@@ -91,6 +91,7 @@ class HT16K33(object):
         else:
             # Turn on the speciried LED (set bit to one).
             self.buffer[pos] |= (1 << offset)
+
     def read_display(self):
         """Read display to buffer."""
         for i, value in enumerate(self.buffer):
