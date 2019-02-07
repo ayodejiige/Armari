@@ -1,9 +1,22 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import enum
+import pyodbc
+from sqlalchemy import create_engine
+import urllib
+
+# params = urllib.parse.quote_plus(r'Driver={ODBC Driver 13 for SQL Server};Server=tcp:armari.database.windows.net,1433;Database=Wardrobe;Uid=armari@armari;Pwd=Armari2019;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+# conn_str = 'mssql+pyodbc:///?odbc_connect={}'.format(params)
+
+cnxn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=tcp:armari.database.windows.net,1433;Database=Wardrobe;Uid=armari@armari;Pwd=WAterloo2019;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;")
+cursor = cnxn.cursor()
+cursor.execute("select @@VERSION")
+row = cursor.fetchone()
+if row:
+    print 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/ayodeji/test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = conn_str
 db = SQLAlchemy(app)
 
 class CompartmentStates(enum.Enum):
@@ -166,6 +179,7 @@ class DBManager(object):
         pass
         
 def main():
+    pass
     # db.create_all()
     # cloth = ClothingItem(type="dress")
     # user = User(username='deji', email='admin@email2')
@@ -174,13 +188,13 @@ def main():
     # compartment.add_cloth(cloth)
     # db.session.add(user)
     # db.session.commit()
-    M = Manager()
-    # M.new_cloth(1, "shirt")
-    M.retrieve_cloth(1, 2)
+    # # M = Manager()
+    # # M.new_cloth(1, "shirt")
+    # # M.retrieve_cloth(1, 2)
 
-    # user_id = 1
-    # user = User.query.filter_by(id=user_id)
-    # print(user)
+    # # user_id = 1
+    # # user = User.query.filter_by(id=user_id)
+    # # print(user)
 
     # print(User.query.all())
 

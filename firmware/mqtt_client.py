@@ -25,7 +25,8 @@ class MQTTClient(mqtt.Client):
         # To do: Add regex to check topic is of right format
         if key in self._callback_dict.keys():
             callback = self._callback_dict[key]
-            payload = json.loads(msg.payload)
+            message = (msg.payload).decode("utf-8") 
+            payload = json.loads(message)
             try:
                 thread = threading.Thread(target=callback, args=[obj, user_id, payload])
                 thread.start()
@@ -51,6 +52,7 @@ class MQTTClient(mqtt.Client):
             self._callback_dict[key] = callback
             super().subscribe(topic, 0)
         except Exception as e:
+            print (e)
             print ("Topic not in right format")
     
     def publish(self, topic, payload):
