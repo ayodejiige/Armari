@@ -15,22 +15,52 @@ namespace testapp
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton AddButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView liveCameraStream { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton TranslateButton { get; set; }
+        UIKit.UIButton TakePhotoButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton UploadButton { get; set; }
+
+        [Action ("AddButtonTapped:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void AddButtonTapped (UIKit.UIButton sender);
+
+        [Action ("TakePhotoButtonTapped:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void TakePhotoButtonTapped (UIKit.UIButton sender);
+
+        [Action ("UploadButtonTapped:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void UploadButtonTapped (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
+            if (AddButton != null) {
+                AddButton.Dispose ();
+                AddButton = null;
+            }
+
             if (liveCameraStream != null) {
                 liveCameraStream.Dispose ();
                 liveCameraStream = null;
             }
 
-            if (TranslateButton != null) {
-                TranslateButton.Dispose ();
-                TranslateButton = null;
+            if (TakePhotoButton != null) {
+                TakePhotoButton.Dispose ();
+                TakePhotoButton = null;
+            }
+
+            if (UploadButton != null) {
+                UploadButton.Dispose ();
+                UploadButton = null;
             }
         }
     }

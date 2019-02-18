@@ -1,17 +1,19 @@
 ﻿<Properties StartupConfiguration="{9AE2226E-60D2-43DA-8C94-504CBC023D42}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.ItemProperties.testapp automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.3a76820f24e92c1918d43df07ac5b478343435d2" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testapp/ViewController.cs">
+  <MonoDevelop.Ide.ItemProperties.testapp automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.C89A457C-CF85-4A97-98F7-AD648F1064FD" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="testapp/Classification.cs">
     <Files>
-      <File FileName="testapp/ViewController.cs" Line="68" Column="17" />
-      <File FileName="testapp/MqttController.cs" Line="3" Column="1" />
-      <File FileName="testapp/Main.cs" Line="12" Column="1" />
-      <File FileName="testapp/MessageHandler.cs" Line="16" Column="1" />
       <File FileName="testapp/Main.storyboard" />
-      <File FileName="testapp/AppDelegate.cs" Line="23" Column="13" />
+      <File FileName="testapp/MqttController.cs" Line="9" Column="53" />
+      <File FileName="testapp/ViewController.cs" Line="68" Column="65" />
+      <File FileName="testapp/Classification.cs" Line="9" Column="17" />
+      <File FileName="testapp/MessageHandler.cs" Line="16" Column="1" />
+      <File FileName="testapp/Main.cs" Line="12" Column="1" />
+      <File FileName="testapp/AppDelegate.cs" Line="23" Column="1" />
+      <File FileName="testapp/Info.plist" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -7,7 +7,6 @@ using AVFoundation;
 using System.Net.Mqtt;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace testapp
 {
@@ -15,19 +14,9 @@ namespace testapp
     {
         private MessageHandler mh;
         bool flashOn = false;
+        bool photoTaken = false;
 
         UIActionSheet actionSheet;
-    //    actionSheet.AddButton("delete");
-    //actionSheet.AddButton("cancel");
-    //actionSheet.AddButton("a different option!");
-    //actionSheet.AddButton("another option");
-    //actionSheet.DestructiveButtonIndex = 0;
-    //actionSheet.CancelButtonIndex = 1;
-    ////actionSheet.FirstOtherButtonIndex = 2;
-    //actionSheet.Clicked += delegate(object a, UIButtonEventArgs b) {
-    //    Console.WriteLine("Button " + b.ButtonIndex.ToString() + " clicked");
-    //};
-    //actionSheet.ShowInView(View);
         AVCaptureSession captureSession;
         AVCaptureDeviceInput captureDeviceInput;
         AVCaptureStillImageOutput stillImageOutput;
@@ -35,8 +24,6 @@ namespace testapp
 
         protected ViewController(IntPtr handle) : base(handle)
         {
-
-
             // Note: this .ctor should not contain any initialization logic.
         }
 
@@ -49,55 +36,58 @@ namespace testapp
             actionSheet.AddButton("cancel");
             actionSheet.DestructiveButtonIndex = 0;
             actionSheet.CancelButtonIndex = 1;
-            actionSheet.Clicked += delegate (object a, UIButtonEventArgs b) {
+            actionSheet.Clicked += delegate (object a, UIButtonEventArgs b)
+            {
                 Console.WriteLine("Button " + b.ButtonIndex.ToString() + " clicked");
                 Status status = new Status();
                 status.status = 1;
 
                 mh.NewItemFinish("1", status);
             };
-                //await AuthorizeCameraUse();
-                //SetupLiveCameraStream();
 
-                TranslateButton.TouchUpInside += (object sender, EventArgs e) => {
-
-                Cloth cloth = new Cloth();
-                cloth.type = "dress";
-                var t = Task.Run(() => mh.NewItemInit("1", cloth));
-
-                // wait for done
-                actionSheet.ShowInView(View);
+            UploadButton.Hidden = true;
+            TakePhotoButton.Hidden = true;
+            await AuthorizeCameraUse();
 
 
-            };
         }
 
+        partial void AddButtonTapped(UIButton sender)
+        {
+            SetupLiveCameraStream();
+            StartLiveCameraStream();
+            AddButton.Hidden = true;
+            TakePhotoButton.Hidden = false;
+        }
+
+        async partial void TakePhotoButtonTapped(UIButton sender)
+        {
+            var videoConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
+            var sampleBuffer = await stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
+            //var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
+            //var jpegAsByteArray = jpegImageAsNsData.ToArray();
+            captureSession.StopRunning();
+            TakePhotoButton.Hidden = true;
+            UploadButton.Hidden = false;
+        }
+
+        partial void UploadButtonTapped(UIButton sender)
+        {
+            Cloth cloth = new Cloth();
+            cloth.type = "dress";
+            var task = Task.Run(() => mh.NewItemInit("1", cloth));
+
+            //Wait for done
+            actionSheet.ShowInView(View);
+            AddButton.Hidden = false;
+            UploadButton.Hidden = true;
+            StopLiveCameraStream();
+        }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
         }
-
-        //async partial void TakePhotoButtonTapped(UIButton sender)
-        //{
-        //    var videoConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
-        //    var sampleBuffer = await stillImageOutput.CaptureStillImageTaskAsync(videoConnection);
-
-        //    var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-        //    var jpegAsByteArray = jpegImageAsNsData.ToArray();
-
-        //    // TODO: Send this to local storage or cloud storage such as Azure Storage.
-        //}
-
-        //partial void SwitchCameraButtonTapped(UIButton sender)
-        //{
-
-        //}
-
-        //partial void FlashButtonTapped(UIButton sender)
-        //{
-
-        //}
 
         async Task AuthorizeCameraUse()
         {
@@ -120,7 +110,7 @@ namespace testapp
             };
             liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
 
-            var captureDevice = AVCaptureDevice.DefaultDeviceWithMediaType(AVMediaType.Video);
+            var captureDevice = AVCaptureDevice.GetDefaultDevice(AVMediaType.Video);
             ConfigureCameraForDevice(captureDevice);
             captureDeviceInput = AVCaptureDeviceInput.FromDevice(captureDevice);
             captureSession.AddInput(captureDeviceInput);
@@ -133,7 +123,18 @@ namespace testapp
             };
 
             captureSession.AddOutput(stillImageOutput);
+        }
+
+        public void StartLiveCameraStream()
+        {
             captureSession.StartRunning();
+        }
+
+        public void StopLiveCameraStream()
+        {
+            captureSession.RemoveOutput(stillImageOutput);
+            captureSession.RemoveInput(captureDeviceInput);
+            videoPreviewLayer.RemoveFromSuperLayer();
         }
 
         void ConfigureCameraForDevice(AVCaptureDevice device)

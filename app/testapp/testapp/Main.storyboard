@@ -22,18 +22,40 @@
                                 <rect key="frame" x="20" y="693" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <state key="normal" title="Translate"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="AddButtonTapped:" destination="BYZ-38-t0r" id="4039" eventType="touchUpInside"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="608" fixedFrame="YES">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="677"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1604" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="184" y="687" width="46" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="TakePhotoButton.png"/>
+                                <connections>
+                                    <action selector="TakePhotoButtonTapped:" destination="BYZ-38-t0r" id="1808" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3604" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" opaque="NO">
+                                <rect key="frame" x="0.0" y="677" width="414" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.984313725490196" green="1" blue="0.984313725490196" alpha="1"/>
+                                <state key="normal" title="Upload"/>
+                                <connections>
+                                    <action selector="UploadButtonTapped:" destination="BYZ-38-t0r" id="4034" eventType="touchUpInside"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="TranslateButton" destination="199" id="name-outlet-199"/>
+                        <outlet property="AddButton" destination="199" id="name-outlet-199"/>
                         <outlet property="liveCameraStream" destination="608" id="name-outlet-608"/>
+                        <outlet property="TakePhotoButton" destination="1604" id="name-outlet-1604"/>
+                        <outlet property="UploadButton" destination="3604" id="name-outlet-3604"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -41,4 +63,7 @@
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="TakePhotoButton.png" width="143" height="143"/>
+    </resources>
 </document>
