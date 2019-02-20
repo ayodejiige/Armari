@@ -44,18 +44,29 @@ namespace testapp
             m_config = new MqttConfiguration { Port = 1883 };
             m_client = await MqttClient.CreateAsync("test.mosquitto.org", m_config);
             var clientId = "clientIdhGHvpYY9uM";
-            await m_client.ConnectAsync(new MqttClientCredentials(clientId));
-            m_initialized = true;
+
+            try {
+                await m_client.ConnectAsync(new MqttClientCredentials(clientId));
+                m_initialized = true;
+            }
+            catch(MqttClientException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+
         }
 
         public async void Publish(string topic, string payload)
         {
+            if (!m_initialized) return;
             var message = new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes($"{payload}"));
             await m_client.PublishAsync(message, MqttQualityOfService.AtLeastOnce);
         }
 
         public async void Subscribe(string topic, OnMessage callback)
         {
+            if (!m_initialized) return;
             Console.WriteLine("Subscribe to {0}", topic);
             await m_client.SubscribeAsync(topic, MqttQualityOfService.AtMostOnce);
             m_client
@@ -66,6 +77,7 @@ namespace testapp
 
         public async void Unsubscribe(string topic)
         {
+            if (!m_initialized) return;
             await m_client.UnsubscribeAsync(topic);
         }
     }

@@ -13,8 +13,6 @@ namespace testapp
     public partial class ViewController : UIViewController
     {
         private MessageHandler mh;
-        bool flashOn = false;
-        bool photoTaken = false;
 
         UIActionSheet actionSheet;
         AVCaptureSession captureSession;
@@ -48,8 +46,6 @@ namespace testapp
             UploadButton.Hidden = true;
             TakePhotoButton.Hidden = true;
             await AuthorizeCameraUse();
-
-
         }
 
         partial void AddButtonTapped(UIButton sender)

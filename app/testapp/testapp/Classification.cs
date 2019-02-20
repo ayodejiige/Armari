@@ -34,7 +34,7 @@ namespace testappEventArgsT
         //public event EventHandler<EventArgsT<String>> MessageUpdated = delegate { };
 
         MLModel model;
-        CGSize size;
+        //CGSize size;
 
         MachineLearningModel()
         {
