@@ -19,7 +19,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: ayodeji18@outlook.com (HVNC857JVP)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
@@ -28,6 +28,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>iOS Team Provisioning Profile: com.xamarin.armari</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -93,7 +94,7 @@
     <LangVersion>Default</LangVersion>
     <NoStdLib>false</NoStdLib>
     <WarningsNotAsErrors></WarningsNotAsErrors>
-    <CodesignProvision>iOS Team Provisioning Profile: fydp.fydp2</CodesignProvision>
+    <CodesignProvision>iOS Team Provisioning Profile: com.xamarin.armari</CodesignProvision>
     <MtouchUseThumb></MtouchUseThumb>
     <MtouchEnableBitcode></MtouchEnableBitcode>
     <BuildIpa></BuildIpa>
@@ -250,6 +251,7 @@
     <Compile Include="MqttController.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Classification.cs" />
+    <Compile Include="CameraController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\TakePhotoButton.png" />

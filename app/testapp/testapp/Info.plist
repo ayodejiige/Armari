@@ -37,6 +37,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleIdentifier</key>
-	<string>fydp.fydp2</string>
+	<string>com.xamarin.armari</string>
 </dict>
 </plist>

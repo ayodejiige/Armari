@@ -53,7 +53,7 @@
                     </view>
                     <connections>
                         <outlet property="AddButton" destination="199" id="name-outlet-199"/>
-                        <outlet property="liveCameraStream" destination="608" id="name-outlet-608"/>
+                        <outlet property="c" destination="608" id="name-outlet-608"/>
                         <outlet property="TakePhotoButton" destination="1604" id="name-outlet-1604"/>
                         <outlet property="UploadButton" destination="3604" id="name-outlet-3604"/>
                     </connections>
