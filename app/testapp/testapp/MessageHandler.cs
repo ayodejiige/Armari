@@ -19,7 +19,7 @@ namespace testapp
         private MqttController m_mqttH;
         private ManualResetEvent m_finishedEvent;
 
-        private static int s_timeOut = 5000;
+        private static readonly int s_timeOut = 5000;
         private static readonly string s_newItemInitTopic = "/wardrobe/new/init";
         private static readonly string s_newItemInsertedTopic = "/wardrobe/new/inserted";
         private static readonly string s_newItemStatusTopic = "/wardrobe/new/status";
@@ -55,6 +55,7 @@ namespace testapp
             string payload = JsonConvert.SerializeObject(status);
             m_mqttH.Publish(topic, payload);
 
+            // To Do: alternatives to timeout
             bool res = m_finishedEvent.WaitOne(s_timeOut);
             m_finishedEvent.Reset();
 

@@ -31,14 +31,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="677"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="6868" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                        <rect key="frame" x="111" y="313" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1604" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
                                 <rect key="frame" x="184" y="687" width="46" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="TakePhotoButton.png"/>
-                                <connections>
-                                    <action selector="TakePhotoButtonTapped:" destination="BYZ-38-t0r" id="1808" eventType="touchUpInside"/>
-                                </connections>
+                                <connections/>
                             </button>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3604" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" opaque="NO">
                                 <rect key="frame" x="0.0" y="677" width="414" height="59"/>
@@ -56,6 +60,7 @@
                         <outlet property="liveCameraStream" destination="608" id="name-outlet-608"/>
                         <outlet property="TakePhotoButton" destination="1604" id="name-outlet-1604"/>
                         <outlet property="UploadButton" destination="3604" id="name-outlet-3604"/>
+                        <outlet property="ImageView" destination="6868" id="name-outlet-6868"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

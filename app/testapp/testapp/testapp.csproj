@@ -19,7 +19,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: ayodeji18@outlook.com (HVNC857JVP)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
@@ -28,6 +28,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>iOS Team Provisioning Profile: com.xamarin.armari</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -250,10 +251,17 @@
     <Compile Include="PhoneTranslator.cs" />
     <Compile Include="MqttController.cs" />
     <Compile Include="MessageHandler.cs" />
-    <Compile Include="Classification.cs" />
+    <Compile Include="Classifier.cs" />
+    <Compile Include="CameraController.cs" />
+    <Compile Include="Resources\armari_mnist.cs">
+      <DependentUpon>armari_mnist.mlmodel</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\TakePhotoButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <CoreMLModel Include="Resources\armari_mnist.mlmodel" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />

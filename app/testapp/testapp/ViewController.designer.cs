@@ -19,6 +19,10 @@ namespace testapp
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView ImageView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView liveCameraStream { get; set; }
 
         [Outlet]
@@ -33,10 +37,6 @@ namespace testapp
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void AddButtonTapped (UIKit.UIButton sender);
 
-        [Action ("TakePhotoButtonTapped:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void TakePhotoButtonTapped (UIKit.UIButton sender);
-
         [Action ("UploadButtonTapped:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void UploadButtonTapped (UIKit.UIButton sender);
@@ -46,6 +46,11 @@ namespace testapp
             if (AddButton != null) {
                 AddButton.Dispose ();
                 AddButton = null;
+            }
+
+            if (ImageView != null) {
+                ImageView.Dispose ();
+                ImageView = null;
             }
 
             if (liveCameraStream != null) {

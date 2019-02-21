@@ -1,19 +1,27 @@
 ﻿<Properties StartupConfiguration="{9AE2226E-60D2-43DA-8C94-504CBC023D42}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
   <MonoDevelop.Ide.ItemProperties.testapp automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.3a76820f24e92c1918d43df07ac5b478343435d2" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testapp/Info.plist">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testapp/ViewController.cs">
     <Files>
-      <File FileName="testapp/MqttController.cs" Line="9" Column="53" />
-      <File FileName="testapp/ViewController.cs" Line="15" Column="35" />
-      <File FileName="testapp/Classification.cs" Line="37" Column="23" />
-      <File FileName="testapp/MessageHandler.cs" Line="16" Column="1" />
+      <File FileName="testapp/MqttController.cs" Line="80" Column="40" />
+      <File FileName="testapp/CameraController.cs" Line="51" Column="1" />
+      <File FileName="testapp/MessageHandler.cs" Line="27" Column="10" />
       <File FileName="testapp/Main.cs" Line="12" Column="1" />
-      <File FileName="testapp/Info.plist" />
+      <File FileName="testapp/ViewController.cs" Line="55" Column="13" />
+      <File FileName="testapp/Main.storyboard" />
+      <File FileName="testapp/Classifier.cs" Line="75" Column="15" />
+      <File FileName="testapp/Resources/model.cs" Line="144" Column="26" />
+      <File FileName="testapp/Resources/armari_mnist.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="../../../testapp/CameraController.cs" line="46" offsetX="815" offsetY="675" expression="await m_stillImageOutput.CaptureStillImageTaskAsync(videoConnection)" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.ItemProperties.testapp.UITests PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/ayodeji/Projects/Armari/app/testapp/testapp/Classifier.cs" relfile="testapp/Classifier.cs" line="74" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>
