@@ -24,6 +24,7 @@ class Manager(object):
         self._mqttc = MQTTClient(self._HOST, self._PORT)
         self._mqttc.subscribe("+/wardrobe/new/init", self.new_item_init)
         self._mqttc.subscribe("+/wardrobe/new/inserted", self.new_item_inserted)
+        self._db_manager = DBManager(1)
     
     def run(self):
         print ("IS_PI ->>.", IS_PI) 
@@ -32,7 +33,7 @@ class Manager(object):
             rc = self._mqttc.loop()
 
     def new_item_init(self, obj, user_id, payload):
-        compartment = DBManager.get_compartment(user_id)
+        compartment =  self._db_manager.get_compartment()
         x = 0
         y = 1
         # Turn on led
@@ -52,8 +53,8 @@ class Manager(object):
             print ("Took too long")
         else:
             # Update database
-            type = payload["type"]
-            DBManager.new_cloth(compartment, type)
+            cloth_type = payload["type"]
+            self._db_manager.new_cloth(compartment, cloth_type)
         
         payload = {"status": ret}
         topic = "%s/wardrobe/new/status" %user_id
