@@ -68,7 +68,10 @@ class Wardrobe(db.Model):
     
 
     def __init__(self):
-        compartment = Compartment(state=CompartmentStates.DANGLING)
+        default_position = CompartmentPosition();
+        default_position.x = -1
+        default_position.y = -1
+        compartment = Compartment(state=CompartmentStates.DANGLING, position=default_position)
         self.compartments.append(compartment)
 
     def __repr__(self):
@@ -93,8 +96,8 @@ class Wardrobe(db.Model):
 
         return compartment
 
-    def add_compartment(self):
-        compartment = Compartment(state=CompartmentStates.AVAILABLE)
+    def add_compartment(self, position):
+        compartment = Compartment(state=CompartmentStates.AVAILABLE, position=position)
         self.compartments.append(compartment)
 
         return compartment
@@ -119,15 +122,16 @@ class Compartment(db.Model):
         nullable=False)
     clothitems = db.relationship('ClothingItem', backref='compartment', lazy=True)
 
-    def __init__(self, state):
+    def __init__(self, state, position):
         self.state = state
+        # self.position = position
 
     def __repr__(self):
         cl_str = ''
         for cloth in self.clothitems:
             cl_str += str(cloth)
             cl_str += '\n'
-        ret = '\t\t<id %d> <State %s> \n' % (self.id, self.state)
+        ret = '\t\t<id %d> <State %s> <Pos (%d %d)>\n' % (self.id, self.state, 0, 0)
         ret += cl_str
 
         return ret
@@ -180,19 +184,16 @@ class DBManager(object):
     def cloth_count(self):
         return self._wardrobe.get_cloth_count()
 
-    # @classmethod
-    def add_compartment(self):
-        compartment = self._wardrobe.add_compartment()
+    def add_compartment(self, position):
+        compartment = self._wardrobe.add_compartment(position)
 
         return compartment
 
-    # @classmethod
     def get_compartment(self):
         compartment = self._wardrobe.get_free_compartment()
 
         return compartment
 
-    # @classmethod
     def new_cloth(self, compartment, cloth_type):
         cloth = ClothingItem(type=cloth_type)
         compartment.add_cloth(cloth)
@@ -200,11 +201,9 @@ class DBManager(object):
 
         return cloth.id
 
-    # @classmethod
     def return_cloth(self, cloth_id):
         pass
 
-    # @classmethod
     def retrieve_cloth(self, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
 
@@ -213,14 +212,11 @@ class DBManager(object):
     def retrieved_cloth(self, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
         compartment = cloth.get_compartment()
-        # compartment.remove_cloth(cloth)
-        # db.session.commit()
 
-        dangling_compartment =  self._wardrobe.get_dangling_compartment()
+        dangling_compartment = self._wardrobe.get_dangling_compartment()
         dangling_compartment.add_cloth(cloth)
         db.session.commit()
     
-    # @classmethod
     def return_cloth(self, compartment, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
         compartment.add_cloth(cloth)
@@ -234,76 +230,25 @@ class DBManager(object):
     def get_cloth_by_type(self, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
 
-
 def init():
+    default_position = CompartmentPosition();
+    default_position.x = 0
+    default_position.y = 0
     db.create_all()
-    cloth = ClothingItem(type="dress")
     user = User(username='deji', email='admin@email2')
     wardrobe = user.get_wardrobe()
-    compartment = wardrobe.add_compartment()
-    compartment.add_cloth(cloth)
+    compartment = wardrobe.add_compartment(default_position)
+    default_position.y = 1
+    compartment = wardrobe.add_compartment(default_position)
+    default_position.x = 1
+    compartment = wardrobe.add_compartment(default_position)
     db.session.add(user)
     db.session.commit()
 
-
-# global test variables
-test_cloth_id = None
-class TestClass(object):
-    _manager = DBManager(1)
-    _test_cloth_id = None
-
-    def test_newitem(self):
-        global test_cloth_id
-        compartment = self._manager.get_compartment()
-        count = self._manager.cloth_count()
-        test_cloth_id = self._manager.new_cloth(compartment, "test")
-        count_new = self._manager.cloth_count()
-
-        assert count_new == count+1
-
-        self._manager.print_user()
-
-    def test_retrieveitem(self):
-        count = self._manager.cloth_count()
-        cloth = self._manager.retrieve_cloth(test_cloth_id)
-        assert cloth.type == "test"
-
-        self._manager.retrieved_cloth(test_cloth_id)
-        compartment = Compartment.query.filter_by(id=cloth.compartment_id).first()
-        assert compartment.state == CompartmentStates.DANGLING
-
-        count_new = self._manager.cloth_count()
-        assert count_new == count-1
-
-        self._manager.print_user()
-    
-    def test_returnitem(self):
-        count = self._manager.cloth_count()
-        compartment = self._manager.get_compartment()
-        cloth =  self._manager.return_cloth(compartment, test_cloth_id)
-        new_comparment = cloth.compartment
-
-        assert compartment == new_comparment
-
-        count_new = self._manager.cloth_count()
-        assert count_new == count+1
-
-        self._manager.print_user()
-
-    def test_cleanup(self):
-        clothes = ClothingItem.query.filter_by(type="test").all()
-
-        for cloth in clothes:
-            db.session.delete(cloth)
-        db.session.commit()
-
-        self._manager.print_user()
-
 def main():
     # init()
-    user_id = 1
-    user = User.query.filter_by(id=user_id).first()
-    print(user)
+    manager = DBManager(1)
+    manager.print_user()
 
 
 if __name__ == "__main__":
