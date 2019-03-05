@@ -15,6 +15,11 @@ class TestClass(object):
 
         assert count_new == count+1
 
+        count = self._manager.cloth_count()
+        test_cloth_id = self._manager.new_cloth(compartment, "test")
+        count_new = self._manager.cloth_count()
+        assert count_new == count+1
+
         self._manager.print_user()
 
     def test_retrieveitem(self):
@@ -48,7 +53,6 @@ class TestClass(object):
         clothes = ClothingItem.query.filter_by(type="test").all()
 
         for cloth in clothes:
-            db.session.delete(cloth)
-        db.session.commit()
+            self._manager.remove_cloth(cloth.id)
 
         self._manager.print_user()

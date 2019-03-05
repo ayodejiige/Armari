@@ -20,6 +20,8 @@ class Manager(object):
     _TIMEOUT = 20
     _HOST = "test.mosquitto.org"
     _PORT = 1883
+
+    _WAREDROBE_TOPIC="%s/wardrobe/"
     def __init__(self):
         if IS_PI:
             self._led = LedController()
@@ -33,6 +35,7 @@ class Manager(object):
         self._mqttc.subscribe("+/wardrobe/retrieve/done", self.item_retrieved)
         self._mqttc.subscribe("+/wardrobe/return/init", self.return_item)
         self._mqttc.subscribe("+/wardrobe/return/done", self.item_returned)
+        self._mqttc.subscribe("+/wardrobe/delete", self.delete_item)
         self._db_manager = DBManager(1)
     
     def run(self):
@@ -63,9 +66,9 @@ class Manager(object):
         else:
             # Update database
             cloth_type = payload["type"]
-            self._db_manager.new_cloth(compartment, cloth_type)
+            id_ = self._db_manager.new_cloth(compartment, cloth_type)
         
-        payload = {"status": ret}
+        payload = {"status": ret, "id": id_}
         topic = "%s/wardrobe/new/status" %user_id
         self._mqttc.publish(topic, payload)
         
@@ -99,7 +102,7 @@ class Manager(object):
             self._db_manager.retrieved_cloth(cloth_id)
         
         payload = {"status": ret}
-        topic = "%s/wardrobe/retrieve/status" %user_id
+        topic = "+/wardrobe/return/done" %user_id
     
     def item_retrieved(self, obj, user_id, payload):
         self._retrieve_event.set()
@@ -136,6 +139,15 @@ class Manager(object):
     
     def item_returned(self, obj, user_id, payload):
         self._return_event.set()
+    
+    def delete_item(self, obj, user_id, payload):
+        cloth_id = payload["cloth_id"]   
+
+        print ("Deleting item")
+        self._db_manager.remove_cloth(cloth_id)
+        
+        payload = {"status": True}
+        topic = "%s/wardrobe/delete/status" %user_id
     
     def get_wardrobe(self):
         pass

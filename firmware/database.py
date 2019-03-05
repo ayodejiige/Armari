@@ -30,7 +30,7 @@ class CompartmentPosition(object):
     y = None
 
 class CompartmentType(enum.Enum):
-    CLOTHS=0
+    FOLDABLE=0
     HANGER=1
     FOOTWEAR=2
 
@@ -112,12 +112,11 @@ class Wardrobe(db.Model):
         
         return count
 
-
-
 class Compartment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.Enum(CompartmentStates))
     position = db.Column(db.Enum(CompartmentStates))
+    type = db.Column(db.Enum(CompartmentType))
     wardrobe_id = db.Column(db.Integer, db.ForeignKey('wardrobe.id'),
         nullable=False)
     clothitems = db.relationship('ClothingItem', backref='compartment', lazy=True)
@@ -180,6 +179,7 @@ class DBManager(object):
     
     def print_user(self):
         print(self._user)
+        print(self.get_wardrobe_state())
 
     def cloth_count(self):
         return self._wardrobe.get_cloth_count()
@@ -226,9 +226,26 @@ class DBManager(object):
     
     def remove_cloth(self, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
-    
+        db.session.delete(cloth)
+        db.session.commit()
+
     def get_cloth_by_type(self, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
+
+    def get_wardrobe_state(self):
+        compartments = self._wardrobe.compartments
+        res = {}
+        for compartment in compartments:
+            clothes = compartment.clothitems
+            res[compartment.id] = {}
+            for c in clothes:
+                c_dict = {}
+                res[compartment.id][c.id] = {}
+                res[compartment.id][c.id]["type"] = c.type
+                
+        return res
+        
+
 
 def init():
     default_position = CompartmentPosition();
@@ -246,7 +263,7 @@ def init():
     db.session.commit()
 
 def main():
-    # init()
+    init()
     manager = DBManager(1)
     manager.print_user()
 

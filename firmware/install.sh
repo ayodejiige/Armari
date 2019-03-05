@@ -1,6 +1,6 @@
 #!/bin/bash
 USER=pi
-HOST="192.168.1.2"
+HOST="192.168.1.15"
 DEST="/home/pi/firmware"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
