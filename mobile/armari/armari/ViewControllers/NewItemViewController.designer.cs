@@ -7,21 +7,22 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace armari
 {
-    [Register ("CameraViewController")]
-    partial class CameraViewController
+    [Register ("NewItemViewController")]
+    partial class NewItemViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView ImageView { get; set; }
+        UIKit.UIButton TakeiImageButton { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (ImageView != null) {
-                ImageView.Dispose ();
-                ImageView = null;
+            if (TakeiImageButton != null) {
+                TakeiImageButton.Dispose ();
+                TakeiImageButton = null;
             }
         }
     }

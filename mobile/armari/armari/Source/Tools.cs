@@ -24,4 +24,10 @@ namespace armari
             vc.PresentViewController(okAlertController, true, null);
         }
     }
+
+    public struct ClothItem
+    {
+        public int id;
+        public string itemType;
+    }
 }

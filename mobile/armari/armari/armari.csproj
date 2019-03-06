@@ -119,11 +119,16 @@
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
     <Folder Include="Extensions\" />
+    <Folder Include="ViewControllers\" />
+    <Folder Include="Collections\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="AddItemViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\AddItemViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\ChangeTypeViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\NewItemViewController.xib" />
+    <InterfaceDefinition Include="ClothClassCollectionViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -134,12 +139,8 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="FirstViewController.cs" />
-    <Compile Include="CameraViewController.cs" />
     <Compile Include="FirstViewController.designer.cs">
       <DependentUpon>FirstViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CameraViewController.designer.cs">
-      <DependentUpon>CameraViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\CameraController.cs" />
     <Compile Include="Source\Classifier.cs" />
@@ -153,10 +154,36 @@
     <Compile Include="Extensions\UIViewExtensions.cs" />
     <Compile Include="Extensions\UIViewControllerExtensions.cs" />
     <Compile Include="Source\UIHelpers.cs" />
-    <Compile Include="AddItemViewController.cs" />
-    <Compile Include="AddItemViewController.designer.cs">
+    <Compile Include="ViewControllers\AddItemViewController.cs" />
+    <Compile Include="ViewControllers\AddItemViewController.designer.cs">
       <DependentUpon>AddItemViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\ChangeTypeViewController.cs" />
+    <Compile Include="ViewControllers\ChangeTypeViewController.designer.cs">
+      <DependentUpon>ChangeTypeViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\NewItemViewController.cs" />
+    <Compile Include="ViewControllers\NewItemViewController.designer.cs">
+      <DependentUpon>NewItemViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClothClassCollectionViewCell.cs" />
+    <Compile Include="ClothClassCollectionViewCell.designer.cs">
+      <DependentUpon>ClothClassCollectionViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClothClassCollectionDelegate.cs" />
+    <Compile Include="ClothClassCollectionSource.cs" />
+    <Compile Include="ClothClassCollectionView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\armari.mlmodelc\coremldata.bin" />
+    <BundleResource Include="Resources\armari.mlmodelc\model.espresso.net" />
+    <BundleResource Include="Resources\armari.mlmodelc\model.espresso.shape" />
+    <BundleResource Include="Resources\armari.mlmodelc\model.espresso.weights" />
+    <BundleResource Include="Resources\armari.mlmodelc\model\coremldata.bin" />
+    <BundleResource Include="Resources\armari.mlmodelc\neural_network_optionals\coremldata.bin" />
+    <BundleResource Include="Resources\images\camera-outline.png" />
+    <BundleResource Include="Resources\images\camera_tab.png" />
+    <BundleResource Include="Resources\images\classes\coat.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

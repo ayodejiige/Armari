@@ -20,9 +20,10 @@ namespace armari
     public class Classifier
     {
         private static readonly string s_modelExtension = "mlmodelc";
-        private static List<string> s_modelNames = new List<string>() { "armari_mnist", "VGG16", "RESNET50" };
-        private static List<CGSize> s_modelSizes = new List<CGSize>() { new CGSize(28, 28), new CGSize(224, 224), new CGSize(224, 224) };
+        private static List<string> s_modelNames = new List<string>() { "armari", "VGG16", "RESNET50" };
+        private static List<CGSize> s_modelSizes = new List<CGSize>() { new CGSize(224, 224), new CGSize(224, 224), new CGSize(224, 224) };
         private Dictionary<string, Tuple<CGSize, MLModel>> m_modelData = new Dictionary<string, Tuple<CGSize, MLModel>>();
+        private Logger m_logger = Logger.Instance;
 
         public Classifier()
         {
@@ -48,11 +49,11 @@ namespace armari
                 mdl = MLModel.Create(assetPath, out err);
                 if (err != null)
                 {
-                    Console.WriteLine("Error occured while loading models");
+                    m_logger.Error("Error occured while loading models");
                 }
                 else
                 {
-                    Console.WriteLine("Model loaded");
+                    m_logger.Message("Model loaded");
                 }
             }
             catch (ArgumentNullException ane)
@@ -64,9 +65,9 @@ namespace armari
 
         public Prediction Classify(UIImage source)
         {
-            string modelName = "VGG16";
+            //string modelName = "VGG16";
             //string modelName = "RESNET50";
-            //string modelName = "armari_mnist";
+            string modelName = "armari";
             var modelData             = m_modelData[modelName];
             MLModel model             = modelData.Item2;
             CGSize size               = modelData.Item1;
@@ -82,18 +83,20 @@ namespace armari
             var inputFp = new MLDictionaryFeatureProvider(inputs, out error);
             if (error != null)
             {
-                Console.Error.WriteLine("Error creating inputFp");
+                string errorMessage = string.Format("Error creating inputFp: {0}", error.LocalizedDescription);
+                m_logger.Error(errorMessage);
                 return prediction;
             }
 
             var outFeatures = model.GetPrediction(inputFp, out error2);
             if (error2 != null)
             {
-                Console.Error.WriteLine("Error getting outFeatures");
+                string errorMessage = string.Format("Error getting outFeatures: {0}", error2.LocalizedDescription);
+                m_logger.Error(errorMessage);
                 return prediction;
             }
 
-            var predictionsDictionary = outFeatures.GetFeatureValue("classLabelProbs").DictionaryValue;
+            var predictionsDictionary = outFeatures.GetFeatureValue("img").DictionaryValue;
             var byProbability = new List<Tuple<double, string>>();
             foreach (var key in predictionsDictionary.Keys)
             {

@@ -19,6 +19,7 @@
                     <connections>
                         <segue id="6965" destination="6865" kind="relationship" relationship="viewControllers"/>
                         <segue id="7073" destination="6983" kind="relationship" relationship="viewControllers"/>
+                        <segue id="11832" destination="11772" kind="relationship" relationship="viewControllers"/>
                     </connections>
                     <navigationItem title="Title" id="6831" key="navigationItem"/>
                 </tabBarController>
@@ -33,15 +34,15 @@
                         <rect key="frame" x="0.0" y="20" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <tabBarItem key="tabBarItem" title="Item" id="6964"/>
+                    <tabBarItem key="tabBarItem" id="6964"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue id="7372" destination="7160" kind="relationship" relationship="rootViewController"/>
+                        <segue id="8612" destination="8545" kind="relationship" relationship="rootViewController"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6868" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="553" y="539"/>
+            <point key="canvasLocation" x="315" y="486"/>
         </scene>
         <scene sceneID="6982">
             <objects>
@@ -55,68 +56,172 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6986" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="556" y="-302"/>
-        </scene>
-        <scene sceneID="7081">
-            <objects>
-                <viewController id="7082" sceneMemberID="viewController" customClass="AddItemViewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7079"/>
-                        <viewControllerLayoutGuide type="bottom" id="7080"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7083">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="7086" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="0.0" y="78" width="413" height="413"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                        </subviews>
-                    </view>
-                    <connections>
-                        <outlet property="ImageView" destination="7086" id="name-outlet-7086"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7084" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1497" y="536"/>
+            <point key="canvasLocation" x="318" y="-352"/>
         </scene>
         <scene sceneID="7159">
             <objects>
-                <viewController id="7160" sceneMemberID="viewController" customClass="CameraViewController">
+                <viewController id="7160" sceneMemberID="viewController" customClass="AddItemViewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7157"/>
                         <viewControllerLayoutGuide type="bottom" id="7158"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7161">
+                    <view key="view" contentMode="center" id="7161">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="7165" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="0.0" y="78" width="413" height="413"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="12723" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="7" y="77" width="400" height="400"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="12727" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="127" y="485" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7166" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="149" y="597" width="116" height="30"/>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="12755" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" opaque="NO">
+                                <rect key="frame" x="117" y="473" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="AddItem"/>
                                 <connections>
-                                    <segue id="7450" destination="7082" kind="show"/>
+                                    <segue id="13066" destination="12747" kind="show"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="13072" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" textAlignment="center">
+                                <rect key="frame" x="0.0" y="649" width="414" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                     </view>
-                    <navigationItem title="Title" id="7371" key="navigationItem"/>
                     <connections>
-                        <outlet property="ImageView" destination="7165" id="name-outlet-7165"/>
+                        <outlet property="AddItemView" destination="7161" id="name-outlet-7161"/>
+                        <outlet property="ImageView" destination="12723" id="name-outlet-12723"/>
+                        <outlet property="ClothClassImage" destination="12727" id="name-outlet-12727"/>
+                        <outlet property="ClothClassLabel" destination="13072" id="name-outlet-13072"/>
                     </connections>
+                    <navigationItem title="Add Item" id="7868" key="navigationItem">
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="7871"/>
+                            <barButtonItem style="plain" id="8991">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7881" translatesAutoresizingMaskIntoConstraints="NO" key="customView">
+                                    <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Store"/>
+                                    <connections>
+                                        <segue id="10505" destination="8545" kind="show"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7162" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1035" y="537"/>
+            <point key="canvasLocation" x="1364" y="556"/>
+        </scene>
+        <scene sceneID="8544">
+            <objects>
+                <viewController id="8545" sceneMemberID="viewController" customClass="NewItemViewController" storyboardIdentifier="NewItemViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8554"/>
+                        <viewControllerLayoutGuide type="bottom" id="8555"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8550">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view key="titleView" contentMode="scaleToFill" id="8614" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" opaque="NO">
+                                <rect key="frame" x="0.0" y="77" width="414" height="659"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="8768" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" image="images/camera-outline.png">
+                                        <rect key="frame" x="87" y="245" width="240" height="169"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8615" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="609"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <segue id="9973" destination="7160" kind="show"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                        </subviews>
+                    </view>
+                    <navigationItem title="New Cloth" id="8548" key="navigationItem">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="8549"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="TakeiImageButton" destination="8615" id="name-outlet-8615"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8556" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="835" y="489"/>
+        </scene>
+        <scene sceneID="11771">
+            <objects>
+                <navigationController id="11772" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="11774">
+                        <rect key="frame" x="0.0" y="20" width="414" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <tabBarItem key="tabBarItem" title="Item" id="11773"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="11775" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="311" y="1294"/>
+        </scene>
+        <scene sceneID="12746">
+            <objects>
+                <collectionViewController id="12747" sceneMemberID="viewController" customClass="ChangeTypeViewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="12748" customClass="ClothClassCollectionView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="12752">
+                            <size key="itemSize" width="150" height="150"/>
+                            <size key="headerReferenceSize" width="0" height="0"/>
+                            <size key="footerReferenceSize" width="0" height="0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="13132" reuseIdentifier="Cell" customClass="ClothClassCollectionViewCell">
+                                <rect key="frame" x="0.0" y="70" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="70" width="150" height="150"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="13116" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="-1" width="150" height="151"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="ClothClassIcon" destination="13116" id="name-outlet-13116"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="12747" id="12749"/>
+                            <outlet property="delegate" destination="12747" id="12750"/>
+                        </connections>
+                        <inset key="scrollIndicatorInsets" minX="16" minY="16" maxX="16" maxY="16"/>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12753" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1915" y="491"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="images/camera-outline.png" width="980" height="748"/>
+    </resources>
 </document>

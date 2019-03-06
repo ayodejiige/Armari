@@ -4,33 +4,25 @@ using UIKit;
 
 namespace armari
 {
-    public partial class AddItemViewController : UIViewController
+    public partial class NewItemViewController : UIViewController
     {
-        public UIImage Image { get; set; }
         private Logger logger;
-
-        protected AddItemViewController(IntPtr handle) : base(handle)
+        protected NewItemViewController(IntPtr handle) : base(handle)
         {
             // Note: this .ctor should not contain any initialization logic.
         }
 
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
 
             // Setup Logger
             logger = Logger.Instance;
             logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
             logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
             logger.Message("View Loaded");
-
-            // UI Setup
-            if (ImageView.Image != null)
-            {
-                ImageView.Image.Dispose();
-            }
-            ImageView.Image = Image;
+            // Perform any additional setup after loading the view, typically from a nib.
         }
 
         public override void DidReceiveMemoryWarning()

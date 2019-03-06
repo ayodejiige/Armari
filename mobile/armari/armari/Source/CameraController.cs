@@ -17,6 +17,7 @@ namespace armari
         //public event EventHandler<EventArgsT<String>> MessageUpdated = delegate { };
         //public event EventHandler<EventArgsT<String>> ErrorOccurred = delegate { };
         public event EventHandler<EventArgsT<UIImage>> ImagePicked = delegate { };
+        public event EventHandler ImageCanceled = delegate { };
 
         private Logger m_logger = Logger.Instance;
 
@@ -72,6 +73,14 @@ namespace armari
             uiImage = UIImage.FromImage(output);
 
             ImagePicked(this, new EventArgsT<UIImage>(uiImage));
+        }
+
+        public override void Canceled(UIImagePickerController picker)
+        {
+            // Close the picker
+            picker.DismissViewController(true, null);
+
+            ImageCanceled(this, null);
         }
     }
 
