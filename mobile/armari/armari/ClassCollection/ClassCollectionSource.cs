@@ -10,7 +10,7 @@ namespace armari
     {
         #region Computed Properties
         public ClassCollectionView CollectionView { get; set; }
-        public List<int> Classes { get; set; } = new List<int>();
+        public List<int> Ids { get; set; } = new List<int>();
         #endregion
 
         #region Constructors
@@ -21,16 +21,17 @@ namespace armari
 
             // Init numbers collection
             InitializeData(type);
+            CollectionView.Ids = Ids;
         }
         #endregion
 
         private void InitializeData(String type)
         {
-            Classes = Application.mh.GetWardrobe(type);
+            Ids = Application.mh.GetWardrobe(type);
             string msg = "Items: \n";
-            for (int n = 0; n < Classes.Count; ++n)
+            for (int n = 0; n < Ids.Count; ++n)
             {
-                msg += string.Format("\t{0}\n", Classes[n]);
+                msg += string.Format("\t{0}\n", Ids[n]);
             }
             Application.logger.Message(msg);
         }
@@ -45,7 +46,7 @@ namespace armari
         public override nint GetItemsCount(UICollectionView collectionView, nint section)
         {
             // Return the number of items
-            return Classes.Count;
+            return Ids.Count;
         }
 
         public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)

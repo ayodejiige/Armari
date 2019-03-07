@@ -9,6 +9,7 @@ namespace armari
     public class ClassCollectionView : UICollectionView
     {
         public string id;
+        public List<int> Ids { get; set; } = new List<int>();
 
         #region Constructors
         public ClassCollectionView(IntPtr handle) : base(handle)
@@ -27,5 +28,10 @@ namespace armari
             Delegate = new ClassCollectionDelegate(this);
         }
         #endregion
+
+        public int IdentifierForIndexPath(NSIndexPath indexPath)
+        {
+            return Ids[(int)indexPath.Item];
+        }
     }
 }

@@ -37,10 +37,20 @@ namespace armari
         public List<int> ids;
     }
 
+    public struct SelectItemReq
+    {
+        public int id;
+    }
+
+    public struct Cell
+    {
+        public int x;
+        public int y;
+    }
+
     public struct Location
     {
-        public Int32 x;
-        public Int32 y;
+        public List<Cell> locs;
     }
 
     public class MessageHandler
@@ -54,16 +64,18 @@ namespace armari
         private ManualResetEvent m_wardrobeEvent;
         private Logger m_logger = Logger.Instance;
 
-        private static readonly int s_timeOut = 100000;
+        private static readonly int s_timeOut = 5000;
         private static readonly string s_locationTopic = "/wardrobe/location";
         private static readonly string s_newItemInitTopic = "/wardrobe/new/init";
+        private static readonly string s_retrieveItemInitTopic = "/wardrobe/retrieve/init";
         private static readonly string s_newItemInsertedTopic = "/wardrobe/new/done";
-        private static readonly string s_newItemStatusTopic = "/wardrobe/new/status";
+        private static readonly string s_itemRetrievedTopic = "/wardrobe/retrieve/done";
+        private static readonly string s_statusTopic = "/wardrobe/status";
 
         private Location m_locationResponse;
-        private Response m_currentNewItemResponse;
+        private Response m_currentResponse;
         private WardrobeResponse m_wardrobeResponse;
-        //private string m_currentService = "";
+        private string m_currentService = "";
 
         public MessageHandler(string id)
         {
@@ -92,7 +104,7 @@ namespace armari
         public void StatusCallback(byte[] payload)
         {
             string result = System.Text.Encoding.UTF8.GetString(payload);
-            m_currentNewItemResponse = JsonConvert.DeserializeObject<Response>(result);
+            m_currentResponse = JsonConvert.DeserializeObject<Response>(result);
             m_statusEvent.Set();
             m_logger.Message(string.Format("Status Callback {0}", result));
         }
@@ -126,24 +138,28 @@ namespace armari
             return m_wardrobeResponse.ids;
         }
 
-        public Location ServiceInit<T>(string user_id, T item)
+        public Location ServiceInit<T>(T item)
         {
             m_logger.Message("Service Init");
             Type type = typeof(T);
             string sendTopic = "";
 
-            m_locationResponse.x = -1;
-            m_locationResponse.x = -1;
 
-            string locationTopic = "1" + s_locationTopic;
-            string statusTopic = "1" + s_newItemStatusTopic;
+            string locationTopic = Application.USERID + s_locationTopic;
+            string statusTopic = Application.USERID + s_statusTopic;
             m_mqttH.Subscribe(locationTopic, LocationCallback);
             m_mqttH.Subscribe(statusTopic, StatusCallback);
 
             if (type == typeof(NewItemInit))
             {
-                sendTopic = user_id + s_newItemInitTopic;
+                sendTopic = Application.USERID + s_newItemInitTopic;
+                m_currentService = "new";
+            } else if (type == typeof(SelectItemReq))
+            {
+                sendTopic = Application.USERID + s_retrieveItemInitTopic;
+                m_currentService = "retrieve";
             }
+
 
             // Send message to raspi
             string payload = JsonConvert.SerializeObject(item);
@@ -158,18 +174,19 @@ namespace armari
             return m_locationResponse;
         }
 
-        public Response ServiceFinish<T>(string user_id, Status status)
+        public Response ServiceFinish<T>(Status status)
         {
             m_logger.Message("Service Finish");
             Type type = typeof(T);
 
-            Response response = new Response();
-            string statusTopic = "";
+            string statusTopic = Application.USERID + s_statusTopic;
             string sendTopic = "";
-            if (type == typeof(Response))
+            if (m_currentService == "new")
             {
-                sendTopic = user_id + s_newItemInsertedTopic;
-                statusTopic = user_id + s_newItemStatusTopic;
+                sendTopic = Application.USERID + s_newItemInsertedTopic;
+            } else if (m_currentService == "retrieve")
+            {
+                sendTopic = Application.USERID + s_itemRetrievedTopic;
             }
 
             string payload = JsonConvert.SerializeObject(status);
@@ -180,12 +197,7 @@ namespace armari
             m_statusEvent.Reset();
             m_mqttH.Unsubscribe(statusTopic);
 
-            if (type == typeof(Response))
-            {
-                response = m_currentNewItemResponse;
-            }
-
-            return response;
+            return m_currentResponse;
         }
     }
 }

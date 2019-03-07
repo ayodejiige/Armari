@@ -31,11 +31,6 @@ namespace armari
             this.ShowMessage("View Loaded");
 
             // setup
-            mh = new MessageHandler("additem");
-            //mh.InitAddItem();
-
-            //mh.Init();
-
             // Setup Camera
             cam = new CameraController();
             cam.ImagePicked += (s, e) => PhotoSelected(e.Value);
@@ -104,7 +99,7 @@ namespace armari
             {
                 ClothClassImage.Image.Dispose();
             }
-            ClothClassImage.Image = ClassIcons.Icons["coat"];
+            ClothClassImage.Image = ClassIcons.Icons["Tee"];
             ClothClassLabel.Text = className;
         }
 
@@ -134,11 +129,10 @@ namespace armari
 
                 NewItemInit cloth;
                 cloth.type = ClothClassLabel.Text;
-                var location = mh.ServiceInit<NewItemInit>("1", cloth);
-
+                var location = Application.mh.ServiceInit<NewItemInit>(cloth);
 
                 var addingItemController = segue.DestinationViewController as AddingItemViewController;
-                if (addingItemController != null && location.x != -1)
+                if (addingItemController != null)
                 {
                     addingItemController.location = location;
                     addingItemController.mh = mh;
