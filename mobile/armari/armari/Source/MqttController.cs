@@ -15,6 +15,7 @@ namespace armari
         private IMqttClient m_client;
         private static string s_host = "test.mosquitto.org";
         private static int s_port = 1883;
+        private Logger m_logger = Logger.Instance;
 
         public MqttController()
         {
@@ -35,52 +36,60 @@ namespace armari
         //        return m_instance;
         //    }
         //}
-
-        private async void UnInit()
+        public bool IsInitialized()
+        {
+            return m_initialized;
+        }
+        public async void UnInit()
         {
             await this.m_client.DisconnectAsync();
         }
 
-        public async void Init()
+        public async void Init(string id)
         {
             m_config = new MqttConfiguration { Port = s_port };
             m_client = await MqttClient.CreateAsync(s_host, m_config);
-            var clientId = "clientIdhGHvpYY9uM";
+            var clientId = id;
 
             try {
                 await m_client.ConnectAsync(new MqttClientCredentials(clientId));
                 m_initialized = true;
+                m_logger.Message("Loaded MQTT");
             }
             catch(MqttClientException ex)
             {
-                Console.WriteLine(ex.ToString());
+                m_logger.Error("Failed to load mqtt");
+                m_logger.Error(ex.ToString());
             }
-
-
         }
 
-        public async void Publish(string topic, string payload)
+        public void Publish(string topic, string payload)
         {
-            if (!m_initialized) return;
+            if (m_initialized == false) return;
+            string txt = string.Format("Publish to {0} => {1}", topic, payload);
+            m_logger.Message(txt);
             var message = new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes($"{payload}"));
-            await m_client.PublishAsync(message, MqttQualityOfService.AtLeastOnce);
+            m_client.PublishAsync(message, MqttQualityOfService.AtMostOnce).Wait();
         }
 
-        public async void Subscribe(string topic, OnMessage callback)
+        public void Subscribe(string topic, OnMessage callback)
         {
-            if (!m_initialized) return;
-            Console.WriteLine("Subscribe to {0}", topic);
-            await m_client.SubscribeAsync(topic, MqttQualityOfService.AtMostOnce);
+            if (m_initialized == false) return;
+            string txt = string.Format("Subscribe to {0}", topic);
+            m_logger.Message(txt);
+            m_client.SubscribeAsync(topic, MqttQualityOfService.AtLeastOnce).Wait();
             m_client
                 .MessageStream
                 .Where(msg => msg.Topic == topic)
                 .Subscribe(msg => callback(msg.Payload));
         }
 
-        public async void Unsubscribe(string topic)
+        public void Unsubscribe(string topic)
         {
             if (!m_initialized) return;
-            await m_client.UnsubscribeAsync(topic);
+            string txt = string.Format("Unsubscribe from {0}", topic);
+            m_logger.Message(txt);
+            m_client.UnsubscribeAsync(topic).Wait();
         }
     }
 }

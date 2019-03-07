@@ -6,6 +6,9 @@ namespace armari
 {
     public static class UIViewControllerExtensions
     {
+        //private static Logger logger;
+        public static readonly string userId = "1";
+
         public static void ShowAlert(this UIViewController self, string title, string message)
         {
             //Create Alert

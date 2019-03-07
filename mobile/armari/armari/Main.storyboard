@@ -18,7 +18,6 @@
                     </tabBar>
                     <connections>
                         <segue id="6965" destination="6865" kind="relationship" relationship="viewControllers"/>
-                        <segue id="7073" destination="6983" kind="relationship" relationship="viewControllers"/>
                         <segue id="11832" destination="11772" kind="relationship" relationship="viewControllers"/>
                     </connections>
                     <navigationItem title="Title" id="6831" key="navigationItem"/>
@@ -43,20 +42,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6868" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="315" y="486"/>
-        </scene>
-        <scene sceneID="6982">
-            <objects>
-                <navigationController id="6983" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6985">
-                        <rect key="frame" x="0.0" y="20" width="414" height="50"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <tabBarItem key="tabBarItem" title="Item" id="7072"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6986" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="318" y="-352"/>
         </scene>
         <scene sceneID="7159">
             <objects>
@@ -109,7 +94,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Store"/>
                                     <connections>
-                                        <segue id="10505" destination="8545" kind="show"/>
+                                        <segue id="17105" destination="13995" kind="show" identifier="StoreSegue"/>
                                     </connections>
                                 </button>
                             </barButtonItem>
@@ -118,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7162" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1364" y="556"/>
+            <point key="canvasLocation" x="1648" y="227"/>
         </scene>
         <scene sceneID="8544">
             <objects>
@@ -161,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8556" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="835" y="489"/>
+            <point key="canvasLocation" x="995" y="371"/>
         </scene>
         <scene sceneID="11771">
             <objects>
@@ -172,10 +157,17 @@
                     </navigationBar>
                     <tabBarItem key="tabBarItem" title="Item" id="11773"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue id="25755" destination="25447" kind="relationship" relationship="rootViewController"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11775" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <containerView contentMode="scaleToFill" id="13972" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <rect key="frame" x="398" y="1598" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </containerView>
             </objects>
-            <point key="canvasLocation" x="311" y="1294"/>
+            <point key="canvasLocation" x="294" y="1867"/>
         </scene>
         <scene sceneID="12746">
             <objects>
@@ -218,7 +210,148 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12753" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1915" y="491"/>
+            <point key="canvasLocation" x="2404" y="501"/>
+        </scene>
+        <scene sceneID="13994">
+            <objects>
+                <viewController id="13995" sceneMemberID="viewController" customClass="AddingItemViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="13992"/>
+                        <viewControllerLayoutGuide type="bottom" id="13993"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="13996" opaque="NO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="13999" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="23" y="35" width="368" height="655"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="14108" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                        <rect key="frame" x="161" y="590" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <segue id="17416" destination="8545" kind="show" identifier="StoredSegue"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                        <real key="value" value="19"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="13997" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2043" y="1355"/>
+        </scene>
+        <scene sceneID="25446">
+            <objects>
+                <collectionViewController id="25447" sceneMemberID="viewController" customClass="ClosetCollectionViewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="25448" customClass="ClosetCollectionView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="25452">
+                            <size key="itemSize" width="196" height="175"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="25451" customClass="ClosetCollectionViewCell" reuseIdentifier="Cell">
+                                <rect key="frame" x="0.0" y="70" width="196" height="175"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="70" width="196" height="175"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="25817" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="2" width="196" height="149"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="30035" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="154" width="196" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="ClothClassIcon" destination="25817" id="name-outlet-25817"/>
+                                    <segue id="29566" destination="25760" kind="show" identifier="ClassSegue"/>
+                                    <outlet property="ClothClassLabel" destination="30035" id="name-outlet-30035"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="25447" id="25449"/>
+                            <outlet property="delegate" destination="25447" id="25450"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem title="Closet" id="25754" key="navigationItem"/>
+                    <connections>
+                        <outlet property="ClosetCollectionView_" destination="25448" id="name-outlet-25448"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="25453" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="891" y="1865"/>
+        </scene>
+        <scene sceneID="25759">
+            <objects>
+                <collectionViewController id="25760" sceneMemberID="viewController" customClass="ClassCollectionViewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="25762" customClass="ClassCollectionView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="25766">
+                            <size key="itemSize" width="185" height="173"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="25765" reuseIdentifier="Cell" customClass="ClassCollectionViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="185" height="173"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="185" height="173"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="32766" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="185" height="173"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <connections>
+                                    <outlet property="ClothItemImage" destination="32766" id="name-outlet-32766"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="25760" id="25763"/>
+                            <outlet property="delegate" destination="25760" id="25764"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem title="Title" id="25761" key="navigationItem"/>
+                    <connections>
+                        <outlet property="ClassNavigation" destination="25761" id="name-outlet-25761"/>
+                        <outlet property="ClassCollectionView_" destination="25762" id="name-outlet-25762"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="25767" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1386" y="1869"/>
         </scene>
     </scenes>
     <resources>

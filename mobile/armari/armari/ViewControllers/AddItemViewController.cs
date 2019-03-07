@@ -1,6 +1,7 @@
 ﻿using System;
 using Foundation;
 using UIKit;
+using System.Threading.Tasks;
 
 namespace armari
 {
@@ -10,6 +11,7 @@ namespace armari
         private MessageHandler mh;
         private Classifier classifier;
         private Logger logger;
+        private UIImage currentImage;
 
         protected AddItemViewController(IntPtr handle) : base(handle)
         {
@@ -26,7 +28,13 @@ namespace armari
             logger = Logger.Instance;
             logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
             logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
-            logger.Message("View Loaded");
+            this.ShowMessage("View Loaded");
+
+            // setup
+            mh = new MessageHandler("additem");
+            //mh.InitAddItem();
+
+            //mh.Init();
 
             // Setup Camera
             cam = new CameraController();
@@ -81,6 +89,7 @@ namespace armari
             {
                 ImageView.Image.Dispose();
             }
+            currentImage = image;
             ImageView.Image = image;
 
             this.ShowMessage("Took Photo");
@@ -112,17 +121,31 @@ namespace armari
 
         }
 
+
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
         {
             base.PrepareForSegue(segue, sender);
 
-            //var addItemController = segue.DestinationViewController as AddItemViewController;
+            if(segue.Identifier == "StoreSegue")
+            {
+                this.ShowMessage("Storing Cloth");
+                // Initialize message handler
 
-            //if (addItemController != null)
-            //{
-            //    addItemController.Image = ImageView.Image;
-            //    addItemController.Prediction = RunPredictons(ImageView.Image);
-            //}
+
+                NewItemInit cloth;
+                cloth.type = ClothClassLabel.Text;
+                var location = mh.ServiceInit<NewItemInit>("1", cloth);
+
+
+                var addingItemController = segue.DestinationViewController as AddingItemViewController;
+                if (addingItemController != null && location.x != -1)
+                {
+                    addingItemController.location = location;
+                    addingItemController.mh = mh;
+                    addingItemController.image = currentImage;
+                }
+
+            }
         }
     }
 }

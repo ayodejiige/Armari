@@ -28,7 +28,8 @@ namespace armari
 
         public void Message(string msg)
         {
-            MessageUpdated(this, new EventArgsT<string>(msg));
+            //MessageUpdated(this, new EventArgsT<string>(msg));
+            Console.WriteLine("INFO: ARMARI -> {0}", msg);
         }
 
         public void Error(string msg)

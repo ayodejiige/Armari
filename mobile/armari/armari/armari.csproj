@@ -121,6 +121,8 @@
     <Folder Include="Extensions\" />
     <Folder Include="ViewControllers\" />
     <Folder Include="Collections\" />
+    <Folder Include="WardrobeCollection\" />
+    <Folder Include="ClassCollection\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -129,6 +131,11 @@
     <InterfaceDefinition Include="ViewControllers\ChangeTypeViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\NewItemViewController.xib" />
     <InterfaceDefinition Include="ClothClassCollectionViewCell.xib" />
+    <InterfaceDefinition Include="AddingItemViewController.xib" />
+    <InterfaceDefinition Include="WardrobeCollection\ClosetCollectionViewController.xib" />
+    <InterfaceDefinition Include="ClassCollection\ClassCollectionViewController.xib" />
+    <InterfaceDefinition Include="ClosetCollectionViewCell.xib" />
+    <InterfaceDefinition Include="ClassCollectionViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -173,6 +180,32 @@
     <Compile Include="ClothClassCollectionDelegate.cs" />
     <Compile Include="ClothClassCollectionSource.cs" />
     <Compile Include="ClothClassCollectionView.cs" />
+    <Compile Include="AddingItemViewController.cs" />
+    <Compile Include="AddingItemViewController.designer.cs">
+      <DependentUpon>AddingItemViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WardrobeCollection\ClosetCollectionViewController.cs" />
+    <Compile Include="WardrobeCollection\ClosetCollectionViewController.designer.cs">
+      <DependentUpon>ClosetCollectionViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WardrobeCollection\ClosetCollectionDelegate.cs" />
+    <Compile Include="WardrobeCollection\ClosetCollectionView.cs" />
+    <Compile Include="WardrobeCollection\ClosetCollectionSource.cs" />
+    <Compile Include="ClassCollection\ClassCollectionDelegate.cs" />
+    <Compile Include="ClassCollection\ClassCollectionSource.cs" />
+    <Compile Include="ClassCollection\ClassCollectionView.cs" />
+    <Compile Include="ClassCollection\ClassCollectionViewCell.cs" />
+    <Compile Include="ClassCollection\ClassCollectionViewCell.designer.cs">
+      <DependentUpon>ClassCollectionViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClassCollection\ClassCollectionViewController.cs" />
+    <Compile Include="ClassCollection\ClassCollectionViewController.designer.cs">
+      <DependentUpon>ClassCollectionViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WardrobeCollection\ClosetCollectionViewCell.cs" />
+    <Compile Include="WardrobeCollection\ClosetCollectionViewCell.designer.cs">
+      <DependentUpon>ClosetCollectionViewCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\armari.mlmodelc\coremldata.bin" />

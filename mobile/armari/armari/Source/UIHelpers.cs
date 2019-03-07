@@ -22,7 +22,15 @@ namespace armari
     {
         public static Dictionary<string, UIImage> Icons = new Dictionary<string, UIImage>()
         {
-            ["coat"] = UIImage.FromFile("images/classes/coat.png")
+            ["Blouse"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Cardigan"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Hoodie"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Jackets"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Jeans"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Shorts"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Skirt"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Sweater"] = UIImage.FromFile("images/classes/coat.png"),
+            ["Tee"] = UIImage.FromFile("images/classes/coat.png")
         };
     }
 }
