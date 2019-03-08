@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
+using System.IO;
 
 namespace armari
 {
@@ -13,6 +14,8 @@ namespace armari
         public List<int> Ids { get; set; } = new List<int>();
         #endregion
 
+        private static string fileName = "amari_";
+        private static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         #region Constructors
         public ClassCollectionSource(ClassCollectionView collectionView, string type)
         {
@@ -53,7 +56,8 @@ namespace armari
         {
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as ClassCollectionViewCell;
-            cell.Icon = ClassIcons.Icons["Tee"];
+            string filename = Path.Combine(folderPath, fileName + Ids[(int)indexPath.Item] + ".png");
+            cell.Icon = UIImage.FromFile(filename);
 
             return cell;
         }

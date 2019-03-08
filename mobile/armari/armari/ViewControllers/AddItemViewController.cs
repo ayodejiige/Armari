@@ -1,17 +1,19 @@
 ﻿using System;
-using Foundation;
+using System.Collections.Generic;
 using UIKit;
+using Foundation;
 using System.Threading.Tasks;
+using CoreGraphics;
 
 namespace armari
 {
     public partial class AddItemViewController : UIViewController
     {
         private CameraController cam;
-        private MessageHandler mh;
         private Classifier classifier;
         private Logger logger;
         private UIImage currentImage;
+        private string currentClass;
 
         protected AddItemViewController(IntPtr handle) : base(handle)
         {
@@ -30,7 +32,6 @@ namespace armari
             logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
             this.ShowMessage("View Loaded");
 
-            // setup
             // Setup Camera
             cam = new CameraController();
             cam.ImagePicked += (s, e) => PhotoSelected(e.Value);
@@ -38,19 +39,17 @@ namespace armari
 
             // Setup Classifier
             classifier = new Classifier();
-            // UI Setup
-            //CameraView.BackgroundColor = ArmariColors.F1F1F2;
-
-            //Button Callbacks
 
             //Start Camera
             var picker = cam.ShowCamera();
             PresentViewController(picker, true, null);
+
         }
 
-        private String RunPredictons(UIImage image)
+        private List<string> RunPredictons(UIImage image)
         {
             Prediction prediction = classifier.Classify(image);
+            List<string> classes = new List<string>();
             var predictions = prediction.predictions;
             var message = $"{prediction.ModelName} thinks:\n";
             //var topFive = predictions.Take(5);
@@ -58,14 +57,13 @@ namespace armari
             {
                 var prob = p.Item1;
                 var desc = p.Item2;
+                classes.Add(desc);
                 message += $"{desc} : {prob.ToString("P") }\n";
             }
 
             logger.Message(message);
 
-            //PredictionText.Text = message;
-
-            return predictions[0].Item2;
+            return classes;
         }
 
 
@@ -84,36 +82,33 @@ namespace armari
             {
                 ImageView.Image.Dispose();
             }
-            currentImage = image;
-            ImageView.Image = image;
+            CGSize size = new CGSize(224, 224);
+            ImageView.Image = image.Scale(size);
 
             this.ShowMessage("Took Photo");
 
-            var prediction = RunPredictons(ImageView.Image);
-            UpdateClassView(prediction);
+            var classes = RunPredictons(ImageView.Image);
+
+            //Setup Class Picker
+            var pickerModel = new ClassModel(this, classes);
+            ClassPicker.Model = pickerModel;
+
+            //UpdateClassView(prediction);
         }
 
-        public void UpdateClassView(string className)
+        public void ReplaceItem(string className)
         {
-            if (ClothClassImage.Image != null)
-            {
-                ClothClassImage.Image.Dispose();
-            }
-            ClothClassImage.Image = ClassIcons.Icons["Tee"];
-            ClothClassLabel.Text = className;
+            currentClass = className;
         }
 
         private void PhotoCanceled()
         {
-            NewItemViewController controller = Storyboard.InstantiateViewController("NewItemViewController") as NewItemViewController;
+            //NewItemViewController controller = Storyboard. InstantiateViewController("NewItemViewController") as NewItemViewController;
 
+            //this.NavigationController.DismissViewController(true, null);
             // Display the new view
-            this.NavigationController.PushViewController(controller, true);
-        }
-
-        private void ReplaceItem()
-        {
-
+            //this.NavigationController.PopToViewController(controller, true);
+            this.NavigationController.PopToRootViewController(true);
         }
 
 
@@ -121,25 +116,76 @@ namespace armari
         {
             base.PrepareForSegue(segue, sender);
 
-            if(segue.Identifier == "StoreSegue")
+            if (segue.Identifier == "StoreSegue")
             {
                 this.ShowMessage("Storing Cloth");
                 // Initialize message handler
 
 
                 NewItemInit cloth;
-                cloth.type = ClothClassLabel.Text;
+                cloth.type = currentClass;
                 var location = Application.mh.ServiceInit<NewItemInit>(cloth);
-
+                if (location.locs.Count == null)
+                {
+                    this.ShowAlert("Location Error", "Got no location from closet");
+                    this.NavigationController.PopViewController(true);
+                    //return;
+                }
                 var addingItemController = segue.DestinationViewController as AddingItemViewController;
                 if (addingItemController != null)
                 {
+                    addingItemController.identifier = "store";
                     addingItemController.location = location;
-                    addingItemController.mh = mh;
-                    addingItemController.image = currentImage;
+                    addingItemController.image = ImageView.Image;
                 }
 
             }
+        }
+    }
+
+    public class ClassModel : UIPickerViewModel
+    {
+        private readonly AddItemViewController controller;
+        public List<string> classes;
+
+        public ClassModel(AddItemViewController controller_, List<string> classes_)
+        {
+            this.classes = classes_;
+            this.controller = controller_;
+        }
+
+        public override nint GetComponentCount(UIPickerView pickerView)
+        {
+            return 1;
+        }
+
+        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
+        {
+            return classes.Count;
+        }
+
+        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
+        {
+            return classes[(int)row];
+        }
+
+        public override void Selected(UIPickerView pickerView, nint row, nint component)
+        {
+            Application.logger.Message("Selected new");
+            controller.ReplaceItem(classes[(int)pickerView.SelectedRowInComponent(0)]);
+        }
+
+        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
+        {
+            if (component == 0)
+                return 240f;
+            else
+                return 40f;
+        }
+
+        public override nfloat GetRowHeight(UIPickerView picker, nint component)
+        {
+            return 40f;
         }
     }
 }

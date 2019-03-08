@@ -42,6 +42,11 @@ namespace armari
         public int id;
     }
 
+    public struct ReturnItemReq
+    {
+        public int id;
+    }
+
     public struct Cell
     {
         public int x;
@@ -64,12 +69,14 @@ namespace armari
         private ManualResetEvent m_wardrobeEvent;
         private Logger m_logger = Logger.Instance;
 
-        private static readonly int s_timeOut = 5000;
+        private static readonly int s_timeOut = 4000;
         private static readonly string s_locationTopic = "/wardrobe/location";
         private static readonly string s_newItemInitTopic = "/wardrobe/new/init";
         private static readonly string s_retrieveItemInitTopic = "/wardrobe/retrieve/init";
+        private static readonly string s_returnItemInitTopic = "/wardrobe/return/init";
         private static readonly string s_newItemInsertedTopic = "/wardrobe/new/done";
         private static readonly string s_itemRetrievedTopic = "/wardrobe/retrieve/done";
+        private static readonly string s_itemReturnedTopic = "/wardrobe/return/done";
         private static readonly string s_statusTopic = "/wardrobe/status";
 
         private Location m_locationResponse;
@@ -135,7 +142,15 @@ namespace armari
             m_wardrobeEvent.Reset();
             m_mqttH.Unsubscribe(sendTopic);
 
-            return m_wardrobeResponse.ids;
+            if (res)
+            {
+                return m_wardrobeResponse.ids;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public Location ServiceInit<T>(T item)
@@ -158,6 +173,10 @@ namespace armari
             {
                 sendTopic = Application.USERID + s_retrieveItemInitTopic;
                 m_currentService = "retrieve";
+            } else if (type == typeof(ReturnItemReq))
+            {
+                sendTopic = Application.USERID + s_returnItemInitTopic;
+                m_currentService = "return";
             }
 
 
@@ -170,13 +189,20 @@ namespace armari
             m_locationEvent.Reset();
             m_mqttH.Unsubscribe(locationTopic);
 
-
-            return m_locationResponse;
+            if (res)
+            {
+                return m_locationResponse;
+            }
+            else
+            {
+                return new Location();
+            }
         }
 
         public Response ServiceFinish<T>(Status status)
         {
             m_logger.Message("Service Finish");
+            m_currentResponse.status = 0;
             Type type = typeof(T);
 
             string statusTopic = Application.USERID + s_statusTopic;
@@ -187,6 +213,9 @@ namespace armari
             } else if (m_currentService == "retrieve")
             {
                 sendTopic = Application.USERID + s_itemRetrievedTopic;
+            } else if (m_currentService == "return")
+            {
+                sendTopic = Application.USERID + s_itemReturnedTopic;
             }
 
             string payload = JsonConvert.SerializeObject(status);

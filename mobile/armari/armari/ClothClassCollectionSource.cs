@@ -54,13 +54,6 @@ namespace armari
             return true;
         }
 
-        //public override void MoveItem(UICollectionView collectionView, NSIndexPath sourceIndexPath, NSIndexPath destinationIndexPath)
-        //{
-        //    // Reorder our list of items
-        //    var item = Numbers[(int)sourceIndexPath.Item];
-        //    Numbers.RemoveAt((int)sourceIndexPath.Item);
-        //    Numbers.Insert((int)destinationIndexPath.Item, item);
-        //}
         #endregion
     }
 

@@ -9,11 +9,6 @@ namespace armari
     {
         public static readonly NSString Key = new NSString("ClothClassCollectionViewCell");
         public static readonly UINib Nib;
-        public UIImage Icon
-        {
-            get { return ClothClassIcon.Image; }
-            set { ClothClassIcon.Image = value; }
-        }
 
         static ClothClassCollectionViewCell()
         {

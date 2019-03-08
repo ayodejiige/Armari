@@ -13,7 +13,7 @@ namespace armari
         private bool m_initialized;
         private MqttConfiguration m_config;
         private IMqttClient m_client;
-        private static string s_host = "test.mosquitto.org";
+        private static string s_host = "broker.hivemq.com";
         private static int s_port = 1883;
         private Logger m_logger = Logger.Instance;
 

@@ -43,7 +43,15 @@ namespace armari
         {
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as ClosetCollectionViewCell;
-            cell.Label = Classes[(int)indexPath.Item];
+            string label = Classes[(int)indexPath.Item];
+            if (label == "Dangling")
+            {
+                cell.Label = "To Return";
+            }
+            else
+            {
+                cell.Label = label;
+            }
             cell.Icon = ClassIcons.Icons[Classes[(int)indexPath.Item]];
 
             return cell;
@@ -55,13 +63,6 @@ namespace armari
             return true;
         }
 
-        //public override void MoveItem(UICollectionView collectionView, NSIndexPath sourceIndexPath, NSIndexPath destinationIndexPath)
-        //{
-        //    // Reorder our list of items
-        //    var item = Numbers[(int)sourceIndexPath.Item];
-        //    Numbers.RemoveAt((int)sourceIndexPath.Item);
-        //    Numbers.Insert((int)destinationIndexPath.Item, item);
-        //}
         #endregion
 
         public string IdentifierForIndexPath(NSIndexPath indexPath)

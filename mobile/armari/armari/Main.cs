@@ -1,4 +1,6 @@
 ﻿using UIKit;
+using System.IO;
+using Foundation;
 
 namespace armari
 {
@@ -8,6 +10,7 @@ namespace armari
         public static string USERID = "1";
         public static readonly Logger logger = Logger.Instance;
         public static MessageHandler mh = new MessageHandler("Armari2");
+
         // This is the main entry point of the application.
         static void Main(string[] args)
         {

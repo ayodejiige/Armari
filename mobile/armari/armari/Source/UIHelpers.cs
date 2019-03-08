@@ -22,15 +22,16 @@ namespace armari
     {
         public static Dictionary<string, UIImage> Icons = new Dictionary<string, UIImage>()
         {
-            ["Blouse"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Cardigan"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Hoodie"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Jackets"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Jeans"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Shorts"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Skirt"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Sweater"] = UIImage.FromFile("images/classes/coat.png"),
-            ["Tee"] = UIImage.FromFile("images/classes/coat.png")
+            ["Blouse"] = UIImage.FromFile("images/classes/blouse icon.png"),
+            ["Cardigan"] = UIImage.FromFile("images/classes/cardigan icon.png"),
+            ["Hoodie"] = UIImage.FromFile("images/classes/hodie icon.jpg"),
+            ["Jackets"] = UIImage.FromFile("images/classes/jacket icon.png"),
+            ["Jeans"] = UIImage.FromFile("images/classes/jeans.png"),
+            ["Shorts"] = UIImage.FromFile("images/classes/shorts icon.png"),
+            ["Skirt"] = UIImage.FromFile("images/classes/skirt icon.png"),
+            ["Sweater"] = UIImage.FromFile("images/classes/sweater icon.png"),
+            ["Tee"] = UIImage.FromFile("images/classes/tee Icon.jpg"),
+            ["Dangling"] = UIImage.FromFile("images/classes/return icon 2.png")
         };
     }
 }

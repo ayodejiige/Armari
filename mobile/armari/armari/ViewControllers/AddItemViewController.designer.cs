@@ -20,7 +20,7 @@ namespace armari
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView ClothClassImage { get; set; }
+        UIKit.UIPickerView ClassPicker { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -37,9 +37,9 @@ namespace armari
                 AddItemView = null;
             }
 
-            if (ClothClassImage != null) {
-                ClothClassImage.Dispose ();
-                ClothClassImage = null;
+            if (ClassPicker != null) {
+                ClassPicker.Dispose ();
+                ClassPicker = null;
             }
 
             if (ClothClassLabel != null) {

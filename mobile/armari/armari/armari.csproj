@@ -123,6 +123,7 @@
     <Folder Include="Collections\" />
     <Folder Include="WardrobeCollection\" />
     <Folder Include="ClassCollection\" />
+    <Folder Include="Resources\images\classes\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -130,7 +131,6 @@
     <InterfaceDefinition Include="ViewControllers\AddItemViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\ChangeTypeViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\NewItemViewController.xib" />
-    <InterfaceDefinition Include="ClothClassCollectionViewCell.xib" />
     <InterfaceDefinition Include="WardrobeCollection\ClosetCollectionViewController.xib" />
     <InterfaceDefinition Include="ClassCollection\ClassCollectionViewController.xib" />
     <InterfaceDefinition Include="ClosetCollectionViewCell.xib" />
@@ -145,10 +145,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="FirstViewController.cs" />
-    <Compile Include="FirstViewController.designer.cs">
-      <DependentUpon>FirstViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source\CameraController.cs" />
     <Compile Include="Source\Classifier.cs" />
     <Compile Include="Source\EventArgsT.cs" />
@@ -173,13 +169,6 @@
     <Compile Include="ViewControllers\NewItemViewController.designer.cs">
       <DependentUpon>NewItemViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClothClassCollectionViewCell.cs" />
-    <Compile Include="ClothClassCollectionViewCell.designer.cs">
-      <DependentUpon>ClothClassCollectionViewCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ClothClassCollectionDelegate.cs" />
-    <Compile Include="ClothClassCollectionSource.cs" />
-    <Compile Include="ClothClassCollectionView.cs" />
     <Compile Include="WardrobeCollection\ClosetCollectionViewController.cs" />
     <Compile Include="WardrobeCollection\ClosetCollectionViewController.designer.cs">
       <DependentUpon>ClosetCollectionViewController.cs</DependentUpon>
@@ -206,6 +195,7 @@
     <Compile Include="ViewControllers\AddingItemViewController.designer.cs">
       <DependentUpon>AddingItemViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\CameraNavigationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\armari.mlmodelc\coremldata.bin" />
@@ -216,7 +206,18 @@
     <BundleResource Include="Resources\armari.mlmodelc\neural_network_optionals\coremldata.bin" />
     <BundleResource Include="Resources\images\camera-outline.png" />
     <BundleResource Include="Resources\images\camera_tab.png" />
-    <BundleResource Include="Resources\images\classes\coat.png" />
+    <BundleResource Include="Resources\images\camera.png" />
+    <BundleResource Include="Resources\images\menu%403x.png" />
+    <BundleResource Include="Resources\images\classes\blouse icon.png" />
+    <BundleResource Include="Resources\images\classes\cardigan icon.png" />
+    <BundleResource Include="Resources\images\classes\hodie icon.jpg" />
+    <BundleResource Include="Resources\images\classes\jacket icon.png" />
+    <BundleResource Include="Resources\images\classes\jeans.png" />
+    <BundleResource Include="Resources\images\classes\shorts icon.png" />
+    <BundleResource Include="Resources\images\classes\skirt icon.png" />
+    <BundleResource Include="Resources\images\classes\sweater icon.png" />
+    <BundleResource Include="Resources\images\classes\tee Icon.jpg" />
+    <BundleResource Include="Resources\images\classes\return icon 2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

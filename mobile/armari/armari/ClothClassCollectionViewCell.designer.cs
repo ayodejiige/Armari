@@ -13,16 +13,8 @@ namespace armari
     [Register ("ClothClassCollectionViewCell")]
     partial class ClothClassCollectionViewCell
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView ClothClassIcon { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (ClothClassIcon != null) {
-                ClothClassIcon.Dispose ();
-                ClothClassIcon = null;
-            }
         }
     }
 }
