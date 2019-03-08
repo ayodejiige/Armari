@@ -5,19 +5,10 @@ import enum
 from sqlalchemy import create_engine
 import urllib
 
-# params = urllib.parse.quote_plus(r'Driver={ODBC Driver 13 for SQL Server};Server=tcp:armari.database.windows.net,1433;Database=Wardrobe;Uid=armari@armari;Pwd=Armari2019;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
-# conn_str = 'mssql+pyodbc:///?odbc_connect={}'.format(params)
-
-# cnxn = pyodbc.connect("Driver={ODBC Driver 13 for SQL Server};Server=tcp:armari.database.windows.net,1433;Database=Wardrobe;Uid=armari@armari;Pwd=WAterloo2019;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;")
-# cursor = cnxn.cursor()
-# cursor.execute("select @@VERSION")
-# row = cursor.fetchone()
-# if row:
-#     print 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./test.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 class CompartmentStates(enum.Enum):
@@ -33,6 +24,18 @@ class CompartmentType(enum.Enum):
     FOLDABLE=0
     HANGER=1
     FOOTWEAR=2
+
+compartment_dict ={
+    "Blouse" : CompartmentType.FOLDABLE,
+    "Cardigan": CompartmentType.FOLDABLE,
+    "Hoodie": CompartmentType.HANGER,
+    "Jackets": CompartmentType.HANGER,
+    "Jeans": CompartmentType.FOLDABLE,
+    "Shorts": CompartmentType.FOLDABLE,
+    "Skirt": CompartmentType.FOLDABLE,
+    "Sweater": CompartmentType.HANGER,
+    "Tee": CompartmentType.FOLDABLE
+}
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -66,12 +69,11 @@ class Wardrobe(db.Model):
         nullable=False)
     compartments = db.relationship('Compartment', backref='wardrobe', lazy=True)
     
-
     def __init__(self):
         default_position = CompartmentPosition();
         default_position.x = -1
         default_position.y = -1
-        compartment = Compartment(state=CompartmentStates.DANGLING, position=default_position)
+        compartment = Compartment(state=CompartmentStates.DANGLING)
         self.compartments.append(compartment)
 
     def __repr__(self):
@@ -90,14 +92,14 @@ class Wardrobe(db.Model):
 
         return compartment
 
-    def get_free_compartment(self):
+    def get_free_compartment(self, type_):
         compartment = Compartment.query.filter_by(
-            state=CompartmentStates.AVAILABLE, wardrobe_id=self.id).first()
+            state=CompartmentStates.AVAILABLE, type=compartment_dict[type_], wardrobe_id=self.id).first()
 
         return compartment
 
-    def add_compartment(self, position):
-        compartment = Compartment(state=CompartmentStates.AVAILABLE, position=position)
+    def add_compartment(self):
+        compartment = Compartment(state=CompartmentStates.AVAILABLE)
         self.compartments.append(compartment)
 
         return compartment
@@ -115,26 +117,33 @@ class Wardrobe(db.Model):
 class Compartment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.Enum(CompartmentStates))
-    position = db.Column(db.Enum(CompartmentStates))
+    positions = db.relationship('Position', backref='compartment', lazy=True)
     type = db.Column(db.Enum(CompartmentType))
     wardrobe_id = db.Column(db.Integer, db.ForeignKey('wardrobe.id'),
         nullable=False)
     clothitems = db.relationship('ClothingItem', backref='compartment', lazy=True)
 
-    def __init__(self, state, position):
+    def __init__(self, state):
         self.state = state
         # self.position = position
 
     def __repr__(self):
         cl_str = ''
+        pos_str = ''
         for cloth in self.clothitems:
             cl_str += str(cloth)
             cl_str += '\n'
-        ret = '\t\t<id %d> <State %s> <Pos (%d %d)>\n' % (self.id, self.state, 0, 0)
+        
+        for pos in self.positions:
+            pos_str += '(%d, %d)' %(pos.x, pos.y)
+            list
+        ret = '\t\t<id %d> <State %s> <Type %s> <Pos (%s)>\n' % (self.id, self.state, self.type, pos_str)
         ret += cl_str
 
         return ret
-    
+    def add_position(self, position):
+        self.positions.append(position)
+
     def add_cloth(self, cloth):
         self.clothitems.append(cloth)
         # logic to update state here
@@ -145,7 +154,13 @@ class Compartment(db.Model):
     
     def remove_cloth(self, cloth):
         self.clothitems.remove(cloth)
-    
+
+class Position(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    x = db.Column(db.Integer)
+    y = db.Column(db.Integer)
+    compartment_id = db.Column(db.Integer, db.ForeignKey('compartment.id'),
+        nullable=False)
 
 class ClothingItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -189,8 +204,8 @@ class DBManager(object):
 
         return compartment
 
-    def get_compartment(self):
-        compartment = self._wardrobe.get_free_compartment()
+    def get_compartment(self, type_):
+        compartment = self._wardrobe.get_free_compartment(type_)
 
         return compartment
 
@@ -229,8 +244,30 @@ class DBManager(object):
         db.session.delete(cloth)
         db.session.commit()
 
-    def get_cloth_by_type(self, cloth_id):
-        cloth = ClothingItem.query.filter_by(id=cloth_id).first()
+    def get_dangling_cloths(self):
+        compartment = Compartment.query.filter_by(state=CompartmentStates.DANGLING).first()
+        cloth_items = compartment.clothitems
+        print (cloth_items)
+        ids = []
+        for cloth in cloth_items:
+            ids.append(cloth.id)
+
+        return ids
+
+    def get_cloth_by_type(self, cloth_type):
+        cloth_items = ClothingItem.query.filter_by(type=cloth_type).all()
+        ids = []
+        for cloth in cloth_items:
+            if cloth. get_compartment().state == CompartmentStates.DANGLING:
+                continue
+            ids.append(cloth.id)
+
+        return ids
+    
+    def get_cloth_type(self, cloth_id):
+        cloth_type = ClothingItem.query.filter_by(id=cloth_id).first().type
+        print ("??????????????? %s" %cloth_type)
+        return cloth_type
 
     def get_wardrobe_state(self):
         compartments = self._wardrobe.compartments
@@ -244,21 +281,22 @@ class DBManager(object):
                 res[compartment.id][c.id]["type"] = c.type
                 
         return res
-        
 
-
+configuration = [[CompartmentType.HANGER, [(0, 0), (1,0), (2,1), (3,1)]], 
+                    [CompartmentType.FOOTWEAR, [(0,1)]],
+                    [CompartmentType.FOLDABLE, [(1,1), (2,0)]],
+                    [CompartmentType.FOLDABLE, [(3,0)]]]
 def init():
-    default_position = CompartmentPosition();
-    default_position.x = 0
-    default_position.y = 0
     db.create_all()
     user = User(username='deji', email='admin@email2')
     wardrobe = user.get_wardrobe()
-    compartment = wardrobe.add_compartment(default_position)
-    default_position.y = 1
-    compartment = wardrobe.add_compartment(default_position)
-    default_position.x = 1
-    compartment = wardrobe.add_compartment(default_position)
+    for conf in configuration:
+        compartment = wardrobe.add_compartment()
+        compartment.type = conf[0]
+        for p in conf[1]:
+            pos = Position(x=p[0], y=p[1])
+            compartment.add_position(pos)
+
     db.session.add(user)
     db.session.commit()
 
@@ -266,6 +304,8 @@ def main():
     init()
     manager = DBManager(1)
     manager.print_user()
+    print(manager.get_dangling_cloths())
+    # print (manager.get_cloth_by_type("Tee"))
 
 
 if __name__ == "__main__":

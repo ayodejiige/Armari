@@ -57,6 +57,7 @@ class MQTTClient(mqtt.Client):
     
     def publish(self, topic, payload):
         payload = json.dumps(payload)
+        print("Publishing %s to %s" %(payload, topic))
         super().publish(topic, payload)
         
 def test(obj, payload):
