@@ -67,7 +67,7 @@ namespace armari
                     location = Application.mh.ServiceInit<SelectItemReq>(cloth);
                 }
 
-                if (location.locs.Count == null)
+                if (location.locs == null)
                 {
                     this.ShowAlert("Location Error", "Got no location from closet");
                     this.NavigationController.PopViewController(true);

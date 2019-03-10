@@ -31,6 +31,11 @@ namespace armari
         private void InitializeData(String type)
         {
             Ids = Application.mh.GetWardrobe(type);
+
+            if(Ids == null)
+            {
+                Ids = new List<int>();
+            } 
             string msg = "Items: \n";
             for (int n = 0; n < Ids.Count; ++n)
             {

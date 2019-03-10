@@ -49,11 +49,11 @@ namespace armari
                 mdl = MLModel.Create(assetPath, out err);
                 if (err != null)
                 {
-                    m_logger.Error("Error occured while loading models");
+                    Application.logger.Error("Error occured while loading models");
                 }
                 else
                 {
-                    m_logger.Message("Model loaded");
+                    Application.logger.Message("Model loaded");
                 }
             }
             catch (ArgumentNullException ane)
@@ -84,7 +84,7 @@ namespace armari
             if (error != null)
             {
                 string errorMessage = string.Format("Error creating inputFp: {0}", error.LocalizedDescription);
-                m_logger.Error(errorMessage);
+                Application.logger.Error(errorMessage);
                 return prediction;
             }
 
@@ -92,11 +92,11 @@ namespace armari
             if (error2 != null)
             {
                 string errorMessage = string.Format("Error getting outFeatures: {0}", error2.LocalizedDescription);
-                m_logger.Error(errorMessage);
+                Application.logger.Error(errorMessage);
                 return prediction;
             }
 
-            var predictionsDictionary = outFeatures.GetFeatureValue("img").DictionaryValue;
+            var predictionsDictionary = outFeatures.GetFeatureValue("classProbs").DictionaryValue;
             var byProbability = new List<Tuple<double, string>>();
             foreach (var key in predictionsDictionary.Keys)
             {
