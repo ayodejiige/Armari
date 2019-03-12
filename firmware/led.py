@@ -16,12 +16,18 @@ class LedController(HT16K33.HT16K33):
         self.clear()
         self.write_display()
 
-    def set_pixel(self, x, y, value):
+    def set_pixel(self, x, y, value, blink=False):
         """Set pixel at position x, y to the given value.  X and Y should be values
         of 0 to 7.  Value should be 0 for off and non-zero for on.
         """
         if x < 0 or x > 3 or y < 0 or y > 3:
             raise ValueError('LED must be value of 0 to 7.')
+        
+        if blink:
+            self.set_blink(HT16K33.HT16K33_BLINK_1HZ)
+        else:
+            self.set_blink(HT16K33.HT16K33_BLINK_OFF)
+
         led = y*self._N_ANODES + x
         self.set_led(led ,value)
         self.write_display()

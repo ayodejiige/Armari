@@ -62,6 +62,8 @@ class Manager(object):
     def new_item_init(self, obj, user_id, payload):
         cloth_type = payload["type"]
         compartment =  self._db_manager.get_compartment(cloth_type)
+        if compartment is None:
+            return
         x = 0
         y = 1
         # Turn on led
@@ -97,6 +99,8 @@ class Manager(object):
         cloth_id = payload["id"]
         cloth = self._db_manager.retrieve_cloth(cloth_id)
         compartment = cloth.get_compartment()
+        if compartment is None:
+            return
 
         x = 0
         y = 1
@@ -132,6 +136,8 @@ class Manager(object):
         cloth_id = payload["id"]
         cloth_type = self._db_manager.get_cloth_type(cloth_id)
         compartment =  self._db_manager.get_compartment(cloth_type)
+        if compartment is None:
+            return
 
         # Turn on led
         self._set_leds(compartment.positions, 1)

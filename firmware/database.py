@@ -114,6 +114,7 @@ class Wardrobe(db.Model):
         
         return count
 
+MAX_CLOTHS = 6
 class Compartment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.Enum(CompartmentStates))
@@ -146,6 +147,8 @@ class Compartment(db.Model):
 
     def add_cloth(self, cloth):
         self.clothitems.append(cloth)
+        if len(self.clothitems) > MAX_CLOTHS:
+            self.state = CompartmentStates.FULL
         # logic to update state here
     
     def get_cloth(self, id):
@@ -154,6 +157,8 @@ class Compartment(db.Model):
     
     def remove_cloth(self, cloth):
         self.clothitems.remove(cloth)
+        if self.state== CompartmentStates.AVAILABLE and len(self.clothitems) < MAX_CLOTHS:
+            self.state = CompartmentStates.AVAILABLE
 
 class Position(db.Model):
     id = db.Column(db.Integer, primary_key=True)
