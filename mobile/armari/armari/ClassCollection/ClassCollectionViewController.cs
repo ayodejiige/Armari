@@ -5,10 +5,16 @@ using System.Threading.Tasks;
 
 namespace armari
 {
+    public enum ClassCollectionType
+    {
+        OutfitSelection
+    }
+
     public partial class ClassCollectionViewController : UICollectionViewController
     {
         private Logger logger;
         public string label;
+        public ClassCollectionType classCollectionType;
 
         public ClassCollectionViewController(IntPtr handle) : base(handle)
         {
@@ -40,6 +46,10 @@ namespace armari
 
             ClassCollectionView_.UpdateDataSource();
             ClassCollectionView_.ReloadData();
+
+            var delegate_ = ClassCollectionView_.Delegate as ClassCollectionDelegate;
+            delegate_.Controller = this;
+
             this.StopLoadingOverlay();
         }
 

@@ -38,5 +38,6 @@ namespace armari
         };
         public static UIImage ClosetUnselected = UIImage.FromFile("images/closet_unselected.png");
         public static UIImage ClosetSelected = UIImage.FromFile("images/closet_selected.png");
+        public static UIImage NoOufitDay = UIImage.FromFile("images/outfitIcon_1.png");
     }
 }

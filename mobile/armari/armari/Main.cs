@@ -10,6 +10,7 @@ namespace armari
         public static string USERID = "1";
         public static readonly Logger logger = Logger.Instance;
         public static MessageHandler mh = new MessageHandler("Armari2");
+        public static CalendarLogger UniversalCalentarLogger = new CalendarLogger();
 
         // This is the main entry point of the application.
         static void Main(string[] args)

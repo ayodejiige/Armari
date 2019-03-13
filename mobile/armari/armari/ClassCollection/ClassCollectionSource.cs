@@ -48,7 +48,15 @@ namespace armari
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as ClassCollectionViewCell;
             string filename = Path.Combine(folderPath, fileName + Ids[(int)indexPath.Item] + ".png");
-            cell.Icon = UIImage.FromFile(filename);
+            UIImage image = UIImage.FromFile(filename);
+            if (image == null)
+            {
+                cell.Icon = ClassIcons.Icons["Shorts"];
+            }
+            else
+            {
+                cell.Icon = UIImage.FromFile(filename);
+            }
 
             return cell;
         }

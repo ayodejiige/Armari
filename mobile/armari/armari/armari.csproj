@@ -114,16 +114,19 @@
     <ImageAsset Include="Assets.xcassets\Second.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Second.imageset\vector.pdf" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_120x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon_180x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
     <Folder Include="Extensions\" />
     <Folder Include="ViewControllers\" />
-    <Folder Include="Collections\" />
     <Folder Include="WardrobeCollection\" />
     <Folder Include="ClassCollection\" />
     <Folder Include="Resources\images\classes\" />
+    <Folder Include="CalendarCollection\" />
+    <Folder Include="DayCollection\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -136,6 +139,10 @@
     <InterfaceDefinition Include="ClosetCollectionViewCell.xib" />
     <InterfaceDefinition Include="ClassCollectionViewCell.xib" />
     <InterfaceDefinition Include="ViewControllers\AddingItemViewController.xib" />
+    <InterfaceDefinition Include="CalendarCollectionViewCell.xib" />
+    <InterfaceDefinition Include="CalendarCollection\CalendarCollectionViewController.xib" />
+    <InterfaceDefinition Include="DayCollection\DayCollectionViewController.xib" />
+    <InterfaceDefinition Include="DayCollectionViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -197,6 +204,30 @@
     </Compile>
     <Compile Include="ViewControllers\CameraNavigationController.cs" />
     <Compile Include="Source\LoadingOverlay.cs" />
+    <Compile Include="CalendarCollection\CalendarCollectionDelegate.cs" />
+    <Compile Include="CalendarCollection\CalendarCollectionSource.cs" />
+    <Compile Include="CalendarCollection\CalendarCollectionView.cs" />
+    <Compile Include="Source\CalendarLogger.cs" />
+    <Compile Include="Source\DateHandler.cs" />
+    <Compile Include="CalendarCollection\CalendarCollectionViewCell.designer.cs">
+      <DependentUpon>CalendarCollectionViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarCollection\CalendarCollectionViewController.cs" />
+    <Compile Include="CalendarCollection\CalendarCollectionViewController.designer.cs">
+      <DependentUpon>CalendarCollectionViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarCollection\CalendarCollectionViewCell.cs" />
+    <Compile Include="DayCollection\DayCollectionViewController.cs" />
+    <Compile Include="DayCollection\DayCollectionViewController.designer.cs">
+      <DependentUpon>DayCollectionViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DayCollection\DayCollectionViewCell.cs" />
+    <Compile Include="DayCollection\DayCollectionViewCell.designer.cs">
+      <DependentUpon>DayCollectionViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DayCollection\DayCollectionSource.cs" />
+    <Compile Include="DayCollection\DayCollectionView.cs" />
+    <Compile Include="DayCollection\DayCollectionDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\armari.mlmodelc\coremldata.bin" />
@@ -221,6 +252,21 @@
     <BundleResource Include="Resources\images\classes\return icon 2.png" />
     <BundleResource Include="Resources\images\closet_selected.png" />
     <BundleResource Include="Resources\images\closet_unselected.png" />
+    <BundleResource Include="Resources\images\icon_120x.png" />
+    <BundleResource Include="Resources\images\icon_180x.png" />
+    <BundleResource Include="Resources\images\item_3.png" />
+    <BundleResource Include="Resources\images\item_4.png" />
+    <BundleResource Include="Resources\images\item_5.png" />
+    <BundleResource Include="Resources\images\outfitCollection_1.png" />
+    <BundleResource Include="Resources\images\outfitCollection_2.png" />
+    <BundleResource Include="Resources\images\outfitIcon_1.png" />
+    <BundleResource Include="Resources\images\outfitIcon_2.png" />
+    <BundleResource Include="Resources\images\outfitIcon_3.png" />
+    <BundleResource Include="Resources\images\outfitIcon_4.png" />
+    <BundleResource Include="Resources\images\bottom.png" />
+    <BundleResource Include="Resources\images\footwear.png" />
+    <BundleResource Include="Resources\images\layer.png" />
+    <BundleResource Include="Resources\images\top.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
