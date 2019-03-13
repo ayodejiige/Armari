@@ -2,11 +2,16 @@
 using System.IO;
 using Foundation;
 using UIKit;
+using System.Threading.Tasks;
 
 namespace armari
 {
     public partial class AddingItemViewController : UIViewController
     {
+        public string retCategory;
+        public int retId;
+        public string addCategory;
+
         public UIImage image;
         private Logger logger;
         public string identifier;
@@ -30,22 +35,78 @@ namespace armari
             logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
             logger.Message("View Loaded");
 
-            Cell cell = location.locs[0];
-            if(cell.x == 0 & cell.y == 0)
+            DoneButton.TouchUpInside += DoneButton_TouchUpInside;
+
+            DisplayView.Hidden = true;
+            Compartment1.BackgroundColor = ArmariColors.E6D1C8;
+            Compartment2.BackgroundColor = ArmariColors.E6D1C8;
+            Compartment3.BackgroundColor = ArmariColors.E6D1C8;
+            Compartment4.BackgroundColor = ArmariColors.E6D1C8;
+        }
+
+        public async override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+            this.ShowMessage("View appeared");
+
+            this.StartLoadingOverlay();
+
+            await Task.Factory.StartNew(() => {
+                if (identifier == "store")
+                {
+                    NewItemInit cloth;
+                    cloth.type = addCategory;
+                    location = Application.mh.ServiceInit<NewItemInit>(cloth);
+                }
+                else if (identifier == "ret")
+                {
+                    if (retCategory == "Dangling")
+                    {
+                        this.ShowMessage("Returning Item");
+                        ReturnItemReq cloth;
+                        cloth.id = retId;
+                        location = Application.mh.ServiceInit<ReturnItemReq>(cloth);
+                    }
+                    else
+                    {
+                        this.ShowMessage("Selecting Item");
+                        SelectItemReq cloth;
+                        cloth.id = retId;
+                        location = Application.mh.ServiceInit<SelectItemReq>(cloth);
+                    }
+                }
+
+            });
+
+            this.StopLoadingOverlay();
+
+            if (location.locs == null)
             {
-                Compartment1.BackgroundColor = UIColor.Blue;
-            } else if (cell.x == 0 & cell.y == 1)
+                this.NavigationController.PopToRootViewController(true);
+                this.ShowAlert("Location Error", "Got no location from closet");
+            }
+            else
             {
-                Compartment2.BackgroundColor = UIColor.Blue;
-            } else if (cell.x == 1 & cell.y == 1)
-            {
-                Compartment3.BackgroundColor = UIColor.Blue;
-            } else if (cell.x == 3 & cell.x == 0)
-            {
-                Compartment4.BackgroundColor = UIColor.Blue;
+                DisplayView.Hidden = false;
+                Cell cell = location.locs[0];
+                if (cell.x == 0 & cell.y == 0)
+                {
+                    Compartment1.BackgroundColor = ArmariColors.FEC821;
+                }
+                else if (cell.x == 0 & cell.y == 1)
+                {
+                    Compartment2.BackgroundColor = ArmariColors.FEC821;
+                }
+                else if (cell.x == 1 & cell.y == 1)
+                {
+                    Compartment3.BackgroundColor = ArmariColors.FEC821;
+                }
+                else if (cell.x == 3 & cell.x == 0)
+                {
+                    Compartment4.BackgroundColor = ArmariColors.FEC821;
+                }
             }
 
-            DoneButton.TouchUpInside += DoneButton_TouchUpInside;
         }
 
         void DoneButton_TouchUpInside(object sender, EventArgs e)
@@ -94,9 +155,6 @@ namespace armari
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
         {
             base.PrepareForSegue(segue, sender);
-
-
-
         }
     }
 }

@@ -196,6 +196,7 @@
       <DependentUpon>AddingItemViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\CameraNavigationController.cs" />
+    <Compile Include="Source\LoadingOverlay.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\armari.mlmodelc\coremldata.bin" />
@@ -218,6 +219,8 @@
     <BundleResource Include="Resources\images\classes\sweater icon.png" />
     <BundleResource Include="Resources\images\classes\tee Icon.jpg" />
     <BundleResource Include="Resources\images\classes\return icon 2.png" />
+    <BundleResource Include="Resources\images\closet_selected.png" />
+    <BundleResource Include="Resources\images\closet_unselected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

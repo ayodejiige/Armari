@@ -247,6 +247,7 @@
                         <outlet property="Compartment1" destination="42447" id="name-outlet-42447"/>
                         <outlet property="Compartment4" destination="42450" id="name-outlet-42450"/>
                         <outlet property="DoneButton" destination="14108" id="name-outlet-14108"/>
+                        <outlet property="DisplayView" destination="13999" id="name-outlet-13999"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13997" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -420,6 +421,7 @@
                         <outlet property="Compartment2" destination="42388" id="name-outlet-42388"/>
                         <outlet property="Compartment3" destination="42389" id="name-outlet-42389"/>
                         <outlet property="Compartment4" destination="42390" id="name-outlet-42390"/>
+                        <outlet property="DisplayView" destination="33994" id="name-outlet-33994"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="34000" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -49,7 +49,7 @@ namespace armari
                 mdl = MLModel.Create(assetPath, out err);
                 if (err != null)
                 {
-                    Application.logger.Error("Error occured while loading models");
+                    Application.logger.Error("Classification Error", "Error occured while loading models");
                 }
                 else
                 {
@@ -84,7 +84,7 @@ namespace armari
             if (error != null)
             {
                 string errorMessage = string.Format("Error creating inputFp: {0}", error.LocalizedDescription);
-                Application.logger.Error(errorMessage);
+                Application.logger.Error("Classification Error", errorMessage);
                 return prediction;
             }
 
@@ -92,7 +92,7 @@ namespace armari
             if (error2 != null)
             {
                 string errorMessage = string.Format("Error getting outFeatures: {0}", error2.LocalizedDescription);
-                Application.logger.Error(errorMessage);
+                Application.logger.Error("Classification Error", errorMessage);
                 return prediction;
             }
 

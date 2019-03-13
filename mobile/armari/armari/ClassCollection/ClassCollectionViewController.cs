@@ -1,6 +1,7 @@
 ﻿using System;
 using UIKit;
 using Foundation;
+using System.Threading.Tasks;
 
 namespace armari
 {
@@ -24,7 +25,22 @@ namespace armari
             logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
             logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
             this.ShowMessage("View Loaded");
+        }
 
+        public async override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+            this.ShowMessage("View appeared");
+
+            this.StartLoadingOverlay();
+
+            await Task.Factory.StartNew(() => {
+                ClassCollectionView_.InitializeData(label);
+            });
+
+            ClassCollectionView_.UpdateDataSource();
+            ClassCollectionView_.ReloadData();
+            this.StopLoadingOverlay();
         }
 
         public override void DidReceiveMemoryWarning()
@@ -37,6 +53,10 @@ namespace armari
         {
             label = label_;
             ClassNavigation.Title = label_;
+            if(label_ == "Dangling")
+            {
+                ClassNavigation.Title = "To Return";
+            }
         }
 
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
@@ -45,40 +65,17 @@ namespace armari
 
             if (segue.Identifier == "RetrieveSegue")
             {
-
                 // Initialize message handler
                 NSIndexPath indexPath = ClassCollectionView_.GetIndexPathsForSelectedItems()[0];
                 int identifier = ClassCollectionView_.IdentifierForIndexPath(indexPath);
                 this.ShowMessage(string.Format("RetrieveSegue Cloth -> {0}", identifier));
-                Location location = new Location();
-
-                if(label == "Dangling")
-                {
-                    this.ShowMessage("Returning Item");
-                    ReturnItemReq cloth;
-                    cloth.id = identifier;
-                    location = Application.mh.ServiceInit<ReturnItemReq>(cloth);
-                }
-                else
-                {
-                    this.ShowMessage("Selecting Item");
-                    SelectItemReq cloth;
-                    cloth.id = identifier;
-                    location = Application.mh.ServiceInit<SelectItemReq>(cloth);
-                }
-
-                if (location.locs == null)
-                {
-                    this.ShowAlert("Location Error", "Got no location from closet");
-                    this.NavigationController.PopViewController(true);
-                    //return;
-                }
 
                 var retItemController = segue.DestinationViewController as AddingItemViewController;
                 if (retItemController != null)
                 {
+                    retItemController.retId = identifier;
+                    retItemController.retCategory = label;
                     retItemController.identifier = "ret";
-                    retItemController.location = location;
                 }
                 else
                 {

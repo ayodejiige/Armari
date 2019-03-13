@@ -17,6 +17,13 @@ namespace armari
             mh.Init();
             // if you want to use a different Application Delegate class from "AppDelegate"
             // you can specify it here.
+            UITextAttributes textAttrib = new UITextAttributes();
+            textAttrib.TextColor = ArmariColors.FEC821;
+            UITabBarItem.Appearance.SetTitleTextAttributes(textAttrib, UIControlState.Selected);
+            UIBarButtonItem.Appearance.SetTitleTextAttributes(textAttrib, UIControlState.Normal);
+            UINavigationBar.Appearance.SetTitleTextAttributes(textAttrib);
+            UIButton.Appearance.SetTitleColor(ArmariColors.FEC821, UIControlState.Normal);
+            UIWindow.Appearance.TintColor = ArmariColors.FEC821;
             UIApplication.Main(args, null, "AppDelegate");
         }
     }

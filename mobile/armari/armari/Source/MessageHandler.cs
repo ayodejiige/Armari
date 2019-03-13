@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace armari
 {
+    using WardrobeResponseAll = Dictionary<string, List<int>>;
+
     public struct Cloth
     {
         public string type;
@@ -36,6 +38,8 @@ namespace armari
     {
         public List<int> ids;
     }
+
+
 
     public struct SelectItemReq
     {
@@ -82,6 +86,7 @@ namespace armari
         private Location m_locationResponse;
         private Response m_currentResponse;
         private WardrobeResponse m_wardrobeResponse;
+        private WardrobeResponseAll m_wardrobeResponseAll;
         private string m_currentService = "";
 
         public MessageHandler(string id)
@@ -90,16 +95,13 @@ namespace armari
             m_locationEvent = new ManualResetEvent(false);
             m_statusEvent = new ManualResetEvent(false);
             m_wardrobeEvent = new ManualResetEvent(false);
-            m_mqttH.Init(id);
         }
 
-        public void Init()
+        public async void Init()
         {
-            //while (m_mqttH.IsInitialized() == false) {
-            //    Task.Delay(100).Wait();
-            //}
-
+            await m_mqttH.Init();
         }
+
         public void LocationCallback(byte[] payload)
         {
             string result = System.Text.Encoding.UTF8.GetString(payload);
@@ -124,6 +126,16 @@ namespace armari
             m_logger.Message(string.Format("Wardrobe Callback {0}", result));
         }
 
+        public void WardrobeAllCallback(byte[] payload)
+        {
+            string result = System.Text.Encoding.UTF8.GetString(payload);
+            m_wardrobeResponseAll = JsonConvert.DeserializeObject<WardrobeResponseAll>(result);
+            m_wardrobeEvent.Set();
+            m_logger.Message(string.Format("Wardrobe Callback {0}", result));
+        }
+
+       
+
         public List<int> GetWardrobe(string type)
         {
             string recvTopic = Application.USERID + "/wardrobe/get/items";
@@ -145,6 +157,35 @@ namespace armari
             if (res)
             {
                 return m_wardrobeResponse.ids;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        public WardrobeResponseAll GetWardrobeAll()
+        {
+            string recvTopic = Application.USERID + "/wardrobe/get/items";
+            string sendTopic = Application.USERID + "/wardrobe/get";
+
+            m_mqttH.Subscribe(recvTopic, WardrobeCallback);
+
+            // Send Request
+            WardrobeReq req;
+            req.type = "all";
+            string payload = JsonConvert.SerializeObject(req);
+            m_mqttH.Publish(sendTopic, payload);
+
+            // Wait for location from raspi
+            bool res = m_wardrobeEvent.WaitOne(s_timeOut);
+            m_wardrobeEvent.Reset();
+            m_mqttH.Unsubscribe(sendTopic);
+
+            if (res)
+            {
+                return m_wardrobeResponseAll;
             }
             else
             {

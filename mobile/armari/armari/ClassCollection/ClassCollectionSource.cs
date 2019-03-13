@@ -10,38 +10,24 @@ namespace armari
     public class ClassCollectionSource : UICollectionViewDataSource
     {
         #region Computed Properties
-        public ClassCollectionView CollectionView { get; set; }
-        public List<int> Ids { get; set; } = new List<int>();
+        private ClassCollectionView CollectionView { get; set; }
+        private List<int> Ids { get; set; } = null;
         #endregion
 
         private static string fileName = "amari_";
         private static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         #region Constructors
-        public ClassCollectionSource(ClassCollectionView collectionView, string type)
+        public ClassCollectionSource(ClassCollectionView collectionView)
         {
             // Initialize
             CollectionView = collectionView;
-
-            // Init numbers collection
-            InitializeData(type);
-            CollectionView.Ids = Ids;
+            Ids = CollectionView.Ids;
         }
         #endregion
 
-        private void InitializeData(String type)
+        public void SetIds(List<int> ids)
         {
-            Ids = Application.mh.GetWardrobe(type);
-
-            if(Ids == null)
-            {
-                Ids = new List<int>();
-            } 
-            string msg = "Items: \n";
-            for (int n = 0; n < Ids.Count; ++n)
-            {
-                msg += string.Format("\t{0}\n", Ids[n]);
-            }
-            Application.logger.Message(msg);
+            Ids = ids;
         }
 
         #region Override Methods

@@ -32,6 +32,10 @@ namespace armari
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIView DisplayView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton DoneButton { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -54,6 +58,11 @@ namespace armari
             if (Compartment4 != null) {
                 Compartment4.Dispose ();
                 Compartment4 = null;
+            }
+
+            if (DisplayView != null) {
+                DisplayView.Dispose ();
+                DisplayView = null;
             }
 
             if (DoneButton != null) {

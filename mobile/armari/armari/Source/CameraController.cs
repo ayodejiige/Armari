@@ -14,8 +14,6 @@ namespace armari
 {
     public class ImagePickerControllerDelegate : UIImagePickerControllerDelegate
     {
-        //public event EventHandler<EventArgsT<String>> MessageUpdated = delegate { };
-        //public event EventHandler<EventArgsT<String>> ErrorOccurred = delegate { };
         public event EventHandler<EventArgsT<UIImage>> ImagePicked = delegate { };
         public event EventHandler ImageCanceled = delegate { };
 
@@ -26,13 +24,13 @@ namespace armari
             // Close the picker
             picker.DismissViewController(true, null);
 
-            m_logger.Message("Analyzing image...");
+            Application.logger.Message("Analyzing image...");
 
             // Read Image from returned data
             UIImage uiImage = info[UIImagePickerController.OriginalImage] as UIImage;
             if (uiImage == null)
             {
-                m_logger.Error("Unable to read image from picker.");
+                Application.logger.Error("Camera Error", "Unable to read image from picker.");
                 return;
             }
 
@@ -49,7 +47,7 @@ namespace armari
             CIImage ciImage = new CIImage(uiImage);
             if (ciImage == null)
             {
-                m_logger.Error("Unable to create required CIImage from UIImage.");
+                Application.logger.Error("Camera Error", "Unable to create required CIImage from UIImage.");
                 return;
             }
             CIImage inputImage = ciImage.CreateWithOrientation(uiImage.Orientation.ToCIImageOrientation());
@@ -66,7 +64,7 @@ namespace armari
             CIContext context = CIContext.FromOptions (null);
             CGImage cgimage = context.CreateCGImage (output, output.Extent);
             msg = string.Format("Using {0} x {1} image", cgimage.Width, cgimage.Height);
-            m_logger.Message(msg);
+            Application.logger.Message(msg);
 
 
             // Get UI Image with correct orientation

@@ -1,12 +1,16 @@
 ﻿using System;
 using UIKit;
+using System.Collections.Generic;
 using Foundation;
+using System.Threading.Tasks;
 
 namespace armari
 {
     public partial class ClosetCollectionViewController : UICollectionViewController
     {
         public static string CurrentClass {get;set;}
+        public static List<int> Ids { get; set; } = null;
+
         private Logger logger;
         public ClosetCollectionViewController(IntPtr handle) : base(handle)
         {
@@ -21,7 +25,26 @@ namespace armari
             logger = Logger.Instance;
             logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
             logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
-            logger.Message("View Loaded");
+            this.ShowMessage("View Loaded");
+        }
+
+        public override void ViewDidUnload()
+        {
+            base.ViewDidUnload();
+        }
+
+        public async override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+            //this.ShowMessage("View appeared");
+
+            //this.StartLoadingOverlay();
+
+            //await Task.Factory.StartNew(() => {
+            //    var wardrobe = Application.mh.GetWardrobeAll();
+            //});
+
+            //this.StopLoadingOverlay();
         }
 
         public override void DidReceiveMemoryWarning()
@@ -36,7 +59,6 @@ namespace armari
 
             if(segue.Identifier == "ClassSegue")
             {
-
                 // Initialize message handler
                 NSIndexPath indexPath = ClosetCollectionView_.GetIndexPathsForSelectedItems () [0];
                 string identifier = ClosetCollectionView_.IdentifierForIndexPath(indexPath);
@@ -46,13 +68,17 @@ namespace armari
                 if (classViewController != null)
                 {
                     classViewController.Initialize(identifier);
+                    //var cv = classViewController.CollectionView as ClassCollectionView;
+                    //this.StartLoadingOverlay();
+                    //Ids = ClassCollectionView.InitializeDataStatic(identifier);
+
                     CurrentClass = identifier;
                 } else
                 {
                     this.ShowAlert("Error" ,"Class failed to load");
                 }
-
             }
+
         }
     }
 }

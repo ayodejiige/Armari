@@ -12,7 +12,6 @@ namespace armari
         private CameraController cam;
         private Classifier classifier;
         private Logger logger;
-        private UIImage currentImage;
         private string currentClass;
 
         protected AddItemViewController(IntPtr handle) : base(handle)
@@ -43,7 +42,6 @@ namespace armari
             //Start Camera
             var picker = cam.ShowCamera();
             PresentViewController(picker, true, null);
-
         }
 
         private List<string> RunPredictons(UIImage image)
@@ -122,20 +120,11 @@ namespace armari
                 // Initialize message handler
 
 
-                NewItemInit cloth;
-                cloth.type = currentClass;
-                var location = Application.mh.ServiceInit<NewItemInit>(cloth);
-                if (location.locs == null)
-                {
-                    this.ShowAlert("Location Error", "Got no location from closet");
-                    this.NavigationController.PopViewController(true);
-                    //return;
-                }
                 var addingItemController = segue.DestinationViewController as AddingItemViewController;
                 if (addingItemController != null)
                 {
+                    addingItemController.addCategory = currentClass;
                     addingItemController.identifier = "store";
-                    addingItemController.location = location;
                     addingItemController.image = ImageView.Image;
                 }
 
