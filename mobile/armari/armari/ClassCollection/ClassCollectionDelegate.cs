@@ -45,10 +45,10 @@ namespace armari
                     case 1:
                         DayCollectionViewController.outfit.Top = item;
                         break;
-                    case 3:
+                    case 2:
                         DayCollectionViewController.outfit.Bottom = item;
                         break;
-                    case 4:
+                    case 3:
                         DayCollectionViewController.outfit.Footwear = item;
                         break;
                     default:

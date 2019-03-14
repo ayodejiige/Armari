@@ -28,8 +28,9 @@ namespace armari
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
             this.ShowMessage("View Loaded");
-            ClassCollectionView_.AllowsMultipleSelection = false;
-            ClassCollectionView_.PrefetchingEnabled = false;
+            //ClassCollectionView_.AllowsMultipleSelection = false;
+            ClassCollectionView_.PrefetchingEnabled = true;
+            //ClassCollectionView_.PrefetchDataSource =
 
         }
 

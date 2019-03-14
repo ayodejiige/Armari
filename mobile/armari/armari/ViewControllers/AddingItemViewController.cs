@@ -112,7 +112,7 @@ namespace armari
                 }
                 else if (cell.x == 0 & cell.y == 1)
                 {
-                    Compartment2.BackgroundColor = ArmariColors.FEC821;
+                    Compartment4.BackgroundColor = ArmariColors.FEC821;
                 }
                 else if (cell.x == 1 & cell.y == 1)
                 {
@@ -120,7 +120,7 @@ namespace armari
                 }
                 else if (cell.x == 3 & cell.x == 0)
                 {
-                    Compartment4.BackgroundColor = ArmariColors.FEC821;
+                    Compartment2.BackgroundColor = ArmariColors.FEC821;
                 }
             }
 
