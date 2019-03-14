@@ -75,7 +75,10 @@ namespace armari
                     default:
                         break;
                 }
-                int idAsInt = int.Parse(id);
+
+
+                int idAsInt = -1;
+                bool idGood = Int32.TryParse(id, out idAsInt);
                 var index = source_.Ids.FindIndex(x => x == idAsInt);
                 this.ShowMessage(string.Format("Item {0} at index {1}", idAsInt, index));
                 if(index == -1)
