@@ -68,6 +68,7 @@ namespace armari
                 if (classViewController != null)
                 {
                     classViewController.Initialize(identifier);
+                    classViewController.classCollectionType = ClassCollectionType.OutfitRet;
                     //var cv = classViewController.CollectionView as ClassCollectionView;
                     //this.StartLoadingOverlay();
                     //Ids = ClassCollectionView.InitializeDataStatic(identifier);

@@ -5,7 +5,7 @@
 	<key>CFBundleName</key>
 	<string>armari</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.armari.armari</string>
+	<string>com.xamarin.armari</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -29,8 +29,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Take the photo</string>

@@ -2,6 +2,7 @@
 
 using Foundation;
 using UIKit;
+using CoreGraphics;
 
 namespace armari
 {
@@ -14,6 +15,27 @@ namespace armari
             get { return ClothItemImage.Image; }
             set { ClothItemImage.Image = value; }
         }
+
+        public nfloat BorderWidth
+        {
+            set { ClothItemImage.Layer.BorderWidth = value; }
+        }
+
+        public bool MasksToBounds
+        {
+            set { ClothItemImage.Layer.MasksToBounds = value; }
+        }
+
+        public UIColor BorderColor
+        {
+            set { ClothItemImage.Layer.BorderColor = value.CGColor; }
+        }
+
+        public nfloat CornerRadius
+        {
+            set { ClothItemImage.Layer.CornerRadius = value; }
+        }
+
 
         static ClassCollectionViewCell()
         {

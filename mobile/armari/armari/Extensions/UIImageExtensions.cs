@@ -54,5 +54,26 @@ namespace armari
             return pb;
 
         }
+
+        public static UIImage CenterCrop(this UIImage self)
+        {
+            // Use smallest side length as crop square length
+            double squareLength = Math.Min(self.Size.Width, self.Size.Height);
+
+            nfloat x, y;
+            x = (nfloat)((self.Size.Width - squareLength) / 2.0);
+            y = (nfloat)((self.Size.Height - squareLength) / 2.0);
+
+            //This Rect defines the coordinates to be used for the crop
+            CGRect croppedRect = CGRect.FromLTRB(x, y, x + (nfloat)squareLength, y + (nfloat)squareLength);
+
+            // Center-Crop the image
+            UIGraphics.BeginImageContextWithOptions(croppedRect.Size, false, self.CurrentScale);
+            self.Draw(new CGPoint(-croppedRect.X, -croppedRect.Y));
+            UIImage croppedImage = UIGraphics.GetImageFromCurrentImageContext();
+            UIGraphics.EndImageContext();
+
+            return croppedImage;
+        }
     }
 }
