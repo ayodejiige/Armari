@@ -59,8 +59,14 @@ namespace armari
 
             cell.CornerRadius = 20;
             cell.MasksToBounds = true;
-            cell.BorderWidth = 5;
+            cell.BorderWidth = 3;
             cell.BorderColor = UIColor.Clear;
+
+            if(cell.Selected)
+            {
+                cell.BorderColor = ArmariColors.FEC821;
+                //CollectionView.Delegate.ItemSelected(collectionView, indexPath);
+            }
 
             return cell;
         }

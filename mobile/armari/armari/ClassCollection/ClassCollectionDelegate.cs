@@ -60,7 +60,6 @@ namespace armari
                 var cell = collectionView.CellForItem(indexPath) as ClassCollectionViewCell;
                 //cell.ContentView.BackgroundColor = ArmariColors.EDA31D;
                 cell.BorderColor = ArmariColors.FEC821;
-                Controller.
             }
         }
 

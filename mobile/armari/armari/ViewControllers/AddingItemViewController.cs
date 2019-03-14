@@ -89,7 +89,14 @@ namespace armari
 
             if (location.locs == null)
             {
-                this.NavigationController.PopToRootViewController(true);
+                if (identifier == "store")
+                {
+                    this.NavigationController.PopToRootViewController(true);
+                }
+                else
+                {
+                    this.NavigationController.PopViewController(true);
+                }
                 this.ShowAlert("Location Error", "Got no location from closet");
             } else if(location.locs.Count == 0)
             {

@@ -20,9 +20,9 @@ namespace armari
         {
 
             //save prev images
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var pics = Directory.EnumerateFiles("images/tmp");
-            Console.WriteLine(String.Format("ARMARI -> Saving Pictures"));
+            //string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //var pics = Directory.EnumerateFiles("images/tmp");
+            //Console.WriteLine(String.Format("ARMARI -> Saving Pictures"));
             //foreach (var pic in pics)
             //{
             //    Console.WriteLine(String.Format("ARMARI -> Saving {0}", pic));
