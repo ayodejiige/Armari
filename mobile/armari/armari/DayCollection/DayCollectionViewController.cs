@@ -87,6 +87,7 @@ namespace armari
             if (classViewController != null)
             {
                 classViewController.Initialize(identifier);
+                classViewController.outfitCategory = (int)indexPath.Item;
             }
             else
             {

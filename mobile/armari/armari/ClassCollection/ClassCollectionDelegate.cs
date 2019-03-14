@@ -37,7 +37,7 @@ namespace armari
                 // Logic to update logger based on selected item
                 var source_ = CollectionView.DataSource as ClassCollectionSource;
                 string item = source_.Ids[(int)indexPath.Item].ToString();
-                switch (indexPath.Item)
+                switch (Controller.outfitCategory)
                 {
                     case 0:
                         DayCollectionViewController.outfit.Layer = item;
@@ -57,9 +57,10 @@ namespace armari
                 Application.UniversalCalentarLogger.AddOutfit(DayCollectionViewController.outfit);
 
                 // Pop back to previous view
-                // Controller.NavigationController.PopViewController(true);
-                var cell = CollectionView.CellForItem(indexPath);
-                cell.ContentView.BackgroundColor = ArmariColors.EDA31D;
+                var cell = collectionView.CellForItem(indexPath) as ClassCollectionViewCell;
+                //cell.ContentView.BackgroundColor = ArmariColors.EDA31D;
+                cell.BorderColor = ArmariColors.FEC821;
+                Controller.
             }
         }
 
@@ -73,8 +74,8 @@ namespace armari
 
                 // Pop back to previous view
                 // Controller.NavigationController.PopViewController(true);
-                var cell = CollectionView.CellForItem(indexPath);
-                cell.ContentView.BackgroundColor = ArmariColors.F1F1F2;
+                var cell = collectionView.CellForItem(indexPath) as ClassCollectionViewCell;
+                cell.BorderColor = UIColor.Clear;
             }
         }
 

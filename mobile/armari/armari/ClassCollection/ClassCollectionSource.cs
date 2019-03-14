@@ -14,8 +14,6 @@ namespace armari
         public List<int> Ids { get; set; } = null;
         #endregion
 
-        private static string fileName = "armari_";
-        private static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         #region Constructors
         public ClassCollectionSource(ClassCollectionView collectionView)
         {
@@ -46,8 +44,9 @@ namespace armari
         public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
         {
             // Get a reusable cell and set {~~it's~>its~~} title from the item
+            Application.logger.Message(string.Format("Loading cell {0} -> {1}", indexPath.Item, Ids[(int)indexPath.Item]));
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as ClassCollectionViewCell;
-            string filename = Path.Combine(folderPath, fileName + Ids[(int)indexPath.Item] + ".png");
+            string filename = Path.Combine(Application.folderPath, Application.fileName + Ids[(int)indexPath.Item] + ".png");
             UIImage image = UIImage.FromFile(filename);
             if (image == null)
             {
@@ -55,8 +54,13 @@ namespace armari
             }
             else
             {
-                cell.Icon = UIImage.FromFile(filename);
+                cell.Icon = image.CenterCrop();
             }
+
+            cell.CornerRadius = 20;
+            cell.MasksToBounds = true;
+            cell.BorderWidth = 5;
+            cell.BorderColor = UIColor.Clear;
 
             return cell;
         }

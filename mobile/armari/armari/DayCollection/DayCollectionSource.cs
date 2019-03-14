@@ -2,6 +2,8 @@
 using Foundation;
 using UIKit;
 using System.Collections.Generic;
+using System.IO;
+
 
 
 namespace armari
@@ -59,13 +61,25 @@ namespace armari
         {
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as DayCollectionViewCell;
-            //cell.Title = Numbers[(int)indexPath.Item].ToString();
+            Application.logger.Message(string.Format("Loading cell {0} -> {1}", indexPath.Item, Ids[(int)indexPath.Item]));
             cell.Title = Titles[(int)indexPath.Item];
-            //cell.Image = UIImage.FromBundle(Ids[(int)indexPath.Item]);
-            cell.Image = ClassIcons.NoOufitDay;
-            //cell.CellImage.Layer.BorderWidth = 0;
-            //cell.CellImage.Layer.CornerRadius = 20;
-            //cell.CellImage.Layer.MasksToBounds = true;
+            string filename = Path.Combine(Application.folderPath, Application.fileName + Ids[(int)indexPath.Item] + ".png");
+            UIImage image = UIImage.FromFile(filename);
+            if(image == null)
+            {
+                Application.logger.Message("No image");
+                cell.Image = ClassIcons.NoOufitDay;
+            }
+            else
+            {
+                Application.logger.Message("Yes image");
+                cell.Image = image.CenterCrop();
+            }
+
+            cell.CornerRadius = 20;
+            cell.MasksToBounds = true;
+            cell.BorderWidth = 0;
+            cell.BorderColor = UIColor.Clear;
 
             return cell;
         }

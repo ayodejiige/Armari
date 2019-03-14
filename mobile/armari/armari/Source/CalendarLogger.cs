@@ -48,6 +48,7 @@ namespace armari
 
             if (index != -1)
             {
+                Application.logger.Message("Outfit exists!");
                 Outfits[index].Layer = outfit.Layer;
                 Outfits[index].Top = outfit.Top;
                 Outfits[index].Bottom = outfit.Bottom;
@@ -55,6 +56,7 @@ namespace armari
             }
             else
             {
+                Application.logger.Message("New Outfit!");
                 Outfits.Add(outfit);
             }
         }

@@ -23,6 +23,25 @@ namespace armari
             set { CellImage.Image = value; }
         }
 
+        public nfloat BorderWidth
+        {
+            set { CellImage.Layer.BorderWidth = value; }
+        }
+
+        public bool MasksToBounds
+        {
+            set { CellImage.Layer.MasksToBounds = value; }
+        }
+
+        public UIColor BorderColor
+        {
+            set { CellImage.Layer.BorderColor = value.CGColor; }
+        }
+
+        public nfloat CornerRadius
+        {
+            set { CellImage.Layer.CornerRadius = value; }
+        }
         #endregion
 
         public DayCollectionViewCell(IntPtr handle) : base(handle)

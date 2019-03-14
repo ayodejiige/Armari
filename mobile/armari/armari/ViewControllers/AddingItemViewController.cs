@@ -93,7 +93,7 @@ namespace armari
                 this.ShowAlert("Location Error", "Got no location from closet");
             } else if(location.locs.Count == 0)
             {
-                this.NavigationController.PopToRootViewController(true);
+                this.NavigationController.PopViewController(true);
                 this.ShowAlert("Location Error", "Item is not in the wardrobe");
             } else
             {

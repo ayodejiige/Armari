@@ -13,9 +13,9 @@ namespace armari
 
     public partial class ClassCollectionViewController : UICollectionViewController
     {
-        private Logger logger;
         public string label;
         public ClassCollectionType classCollectionType;
+        public int outfitCategory;
 
         public ClassCollectionViewController(IntPtr handle) : base(handle)
         {
@@ -27,11 +27,10 @@ namespace armari
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
-
-            logger = Logger.Instance;
-            logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
-            logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
             this.ShowMessage("View Loaded");
+            ClassCollectionView_.AllowsMultipleSelection = false;
+            ClassCollectionView_.PrefetchingEnabled = false;
+
         }
 
         public async override void ViewDidAppear(bool animated)
@@ -58,10 +57,51 @@ namespace armari
             }
             else if(classCollectionType == ClassCollectionType.OutfitSelection)
             {
-                RetreiveButton.Hidden = false;
+                string id = "-1";
+                switch (outfitCategory)
+                {
+                    case 0:
+                        id = DayCollectionViewController.outfit.Layer;
+                        break;
+                    case 1:
+                        id = DayCollectionViewController.outfit.Top;
+                        break;
+                    case 3:
+                        id = DayCollectionViewController.outfit.Bottom;
+                        break;
+                    case 4:
+                        id = DayCollectionViewController.outfit.Footwear;
+                        break;
+                    default:
+                        break;
+                }
+                int idAsInt = int.Parse(id);
+                var index = source_.Ids.FindIndex(x => x == idAsInt);
+                this.ShowMessage(string.Format("Item {0} at index {1}", idAsInt, index));
+                if(index == -1)
+                {
+                    RetreiveButton.Hidden = true;
+                }
+                else
+                {
+                    NSIndexPath nip = NSIndexPath.FromItemSection((int)index, 0);
+                    ClassCollectionView_.SelectItem(nip, false, UICollectionViewScrollPosition.None);
+                    //ClassCollectionView_.Delegate.ItemSelected(ClassCollectionView_, nip);
+
+                    RetreiveButton.Hidden = false;
+                }
+                //NSIndexPath nip = NSIndexPath.FromItemSection((int), 0);
+                //cvColor.SelectItem(nip, false, UICollectionViewScrollPosition.Bottom);
             }
 
             this.StopLoadingOverlay();
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+            //NSIndexPath nip = ClassCollectionView_.GetIndexPathsForSelectedItems()[0];
+            //ClassCollectionView_.Delegate.ItemSelected(ClassCollectionView_, nip);
         }
 
         public override void DidReceiveMemoryWarning()

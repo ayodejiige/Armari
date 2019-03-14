@@ -12,15 +12,17 @@ namespace armari
         public static readonly Logger logger = Logger.Instance;
         public static MessageHandler mh = new MessageHandler("Armari2");
         public static CalendarLogger UniversalCalentarLogger = new CalendarLogger();
+        public static string fileName = "armari_";
+        public static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
         // This is the main entry point of the application.
         static void Main(string[] args)
         {
 
             //save prev images
-            //string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            //var pics = Directory.EnumerateFiles("images/tmp");
-            //Console.WriteLine(String.Format("ARMARI -> Saving Pictures"));
+            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var pics = Directory.EnumerateFiles("images/tmp");
+            Console.WriteLine(String.Format("ARMARI -> Saving Pictures"));
             //foreach (var pic in pics)
             //{
             //    Console.WriteLine(String.Format("ARMARI -> Saving {0}", pic));
