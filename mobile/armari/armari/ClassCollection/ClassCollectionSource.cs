@@ -14,7 +14,7 @@ namespace armari
         public List<int> Ids { get; set; } = null;
         #endregion
 
-        private static string fileName = "amari_";
+        private static string fileName = "armari_";
         private static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         #region Constructors
         public ClassCollectionSource(ClassCollectionView collectionView)
