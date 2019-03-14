@@ -11,7 +11,7 @@ namespace armari
     {
         #region Computed Properties
         private ClassCollectionView CollectionView { get; set; }
-        private List<int> Ids { get; set; } = null;
+        public List<int> Ids { get; set; } = null;
         #endregion
 
         private static string fileName = "amari_";

@@ -35,6 +35,26 @@ namespace armari
             if (Controller.classCollectionType == ClassCollectionType.OutfitSelection)
             {
                 // Logic to update logger based on selected item
+                var source_ = CollectionView.DataSource as ClassCollectionSource;
+                string item = source_.Ids[(int)indexPath.Item].ToString();
+                switch (indexPath.Item)
+                {
+                    case 0:
+                        DayCollectionViewController.outfit.Layer = item;
+                        break;
+                    case 1:
+                        DayCollectionViewController.outfit.Top = item;
+                        break;
+                    case 3:
+                        DayCollectionViewController.outfit.Bottom = item;
+                        break;
+                    case 4:
+                        DayCollectionViewController.outfit.Footwear = item;
+                        break;
+                    default:
+                        break;
+                }
+                Application.UniversalCalentarLogger.AddOutfit(DayCollectionViewController.outfit);
 
                 // Pop back to previous view
                 // Controller.NavigationController.PopViewController(true);

@@ -75,6 +75,13 @@ namespace armari
                         location = Application.mh.ServiceInit<SelectItemReq>(cloth);
                     }
                 }
+                else if (identifier == "day")
+                {
+                    this.ShowMessage("Selecting Item");
+                    SelectItemReq cloth;
+                    cloth.id = retId;
+                    location = Application.mh.ServiceInit<SelectItemReq>(cloth);
+                }
 
             });
 
@@ -84,8 +91,11 @@ namespace armari
             {
                 this.NavigationController.PopToRootViewController(true);
                 this.ShowAlert("Location Error", "Got no location from closet");
-            }
-            else
+            } else if(location.locs.Count == 0)
+            {
+                this.NavigationController.PopToRootViewController(true);
+                this.ShowAlert("Location Error", "Item is not in the wardrobe");
+            } else
             {
                 DisplayView.Hidden = false;
                 Cell cell = location.locs[0];
@@ -119,12 +129,18 @@ namespace armari
             if (identifier == "store" & res.status == 1)
             {
                 StoreImage(res.id, image);
+                this.NavigationController.PopToRootViewController(true);
             }
             else if (identifier == "ret")
             {
                 // Initialize message handler
+                this.NavigationController.PopToRootViewController(true);
             }
-            this.NavigationController.PopToRootViewController(true);
+            else if (identifier == "day")
+            {
+                this.NavigationController.PopViewController(true);
+            }
+
         }
 
 

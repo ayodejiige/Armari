@@ -7,7 +7,8 @@ namespace armari
 {
     public enum ClassCollectionType
     {
-        OutfitSelection
+        OutfitSelection,
+        OutfitRet
     }
 
     public partial class ClassCollectionViewController : UICollectionViewController
@@ -50,6 +51,16 @@ namespace armari
             var delegate_ = ClassCollectionView_.Delegate as ClassCollectionDelegate;
             delegate_.Controller = this;
 
+            var source_ = ClassCollectionView_.DataSource as ClassCollectionSource;
+            if(source_.Ids.Count == 0 & classCollectionType == ClassCollectionType.OutfitSelection)
+            {
+                RetreiveButton.Hidden = true;
+            }
+            else if(classCollectionType == ClassCollectionType.OutfitSelection)
+            {
+                RetreiveButton.Hidden = false;
+            }
+
             this.StopLoadingOverlay();
         }
 
@@ -86,6 +97,25 @@ namespace armari
                     retItemController.retId = identifier;
                     retItemController.retCategory = label;
                     retItemController.identifier = "ret";
+                }
+                else
+                {
+                    this.ShowAlert("Error", "Class failed to load");
+                }
+
+            } else if (segue.Identifier == "RetrieveDayItemSegue")
+            {
+                // Initialize message handler
+                NSIndexPath indexPath = ClassCollectionView_.GetIndexPathsForSelectedItems()[0];
+                int identifier = ClassCollectionView_.IdentifierForIndexPath(indexPath);
+                this.ShowMessage(string.Format("RetrieveSegue Cloth -> {0}", identifier));
+
+                var retItemController = segue.DestinationViewController as AddingItemViewController;
+                if (retItemController != null)
+                {
+                    retItemController.retId = identifier;
+                    retItemController.retCategory = label;
+                    retItemController.identifier = "day";
                 }
                 else
                 {

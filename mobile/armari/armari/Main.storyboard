@@ -137,20 +137,6 @@
                                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Click screen to add new item" minimumFontSize="17" id="42729" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" textAlignment="center">
-                                        <rect key="frame" x="0.0" y="629" width="414" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Click screen to add new item" minimumFontSize="17" id="42730" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" textAlignment="center">
-                                        <rect key="frame" x="0.0" y="679" width="414" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                 </subviews>
                             </view>
                         </subviews>
@@ -560,7 +546,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52846" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2425" y="219"/>
+            <point key="canvasLocation" x="2640" y="254"/>
         </scene>
         <scene sceneID="54409">
             <objects>
@@ -605,12 +591,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="56" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Retrieve"/>
+                                <connections>
+                                    <segue id="59017" destination="13995" kind="show" identifier="RetrieveDayItemSegue"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="ClassNavigation" destination="54412" id="54411"/>
                         <outlet property="ClassCollectionView_" destination="54414" id="54413"/>
+                        <outlet property="RetreiveButton" destination="58043" id="name-outlet-58043"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="54423" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -741,7 +731,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="56543" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2896" y="796"/>
+            <point key="canvasLocation" x="3101" y="255"/>
         </scene>
     </scenes>
     <resources>

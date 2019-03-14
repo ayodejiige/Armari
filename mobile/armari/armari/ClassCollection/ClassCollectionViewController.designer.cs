@@ -22,6 +22,10 @@ namespace armari
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UINavigationItem ClassNavigation { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton RetreiveButton { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (ClassCollectionView_ != null) {
@@ -32,6 +36,11 @@ namespace armari
             if (ClassNavigation != null) {
                 ClassNavigation.Dispose ();
                 ClassNavigation = null;
+            }
+
+            if (RetreiveButton != null) {
+                RetreiveButton.Dispose ();
+                RetreiveButton = null;
             }
         }
     }
