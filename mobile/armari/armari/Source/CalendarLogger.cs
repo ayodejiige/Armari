@@ -9,7 +9,7 @@ namespace armari
     [Preserve]
     public class CalendarOutfit
     {
-        public DateTime CreatedDate { get; set; }
+        private readonly DateTime CreatedDate;
         public string Layer { get; set; }
         public string Top { get; set; }
         public string Bottom { get; set; }
@@ -25,6 +25,11 @@ namespace armari
             Footwear = "footwear.png";
             Worn = false;
         }
+
+        public DateTime getCreatedDate() 
+        {
+            return CreatedDate;
+        }
     }
 
     [Preserve]
@@ -39,7 +44,7 @@ namespace armari
 
         public int FindOutfit(CalendarOutfit outfit)
         {
-            return Outfits.FindIndex(a => a.CreatedDate == outfit.CreatedDate);
+            return Outfits.FindIndex(a => a.getCreatedDate() == outfit.getCreatedDate());
         }
 
         public void AddOutfit(CalendarOutfit outfit)

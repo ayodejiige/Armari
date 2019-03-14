@@ -230,6 +230,7 @@
     <Compile Include="DayCollection\DayCollectionSource.cs" />
     <Compile Include="DayCollection\DayCollectionView.cs" />
     <Compile Include="DayCollection\DayCollectionDelegate.cs" />
+    <Compile Include="Source\OutfitGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\armari.mlmodelc\coremldata.bin" />
@@ -288,6 +289,22 @@
     <BundleResource Include="Resources\images\tmp\armari_2759.png" />
     <BundleResource Include="Resources\images\tmp\armari_2760.png" />
     <BundleResource Include="Resources\images\tmp\armari_2761.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2769.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2771.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2774.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2775.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2776.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2779.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2780.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2781.png" />
+    <BundleResource Include="Resources\images\tmp\armari_3764.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2767.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2768.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2772.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2773.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2777.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2778.png" />
+    <BundleResource Include="Resources\images\tmp\armari_2782.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

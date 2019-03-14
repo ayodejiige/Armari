@@ -54,7 +54,7 @@ namespace armari
 
             }
             
-            if (Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[0].CreatedDate != DateTime.Today) 
+            if (Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[0].getCreatedDate() != DateTime.Today) 
             {
                 Application.UniversalCalentarLogger.AddOutfit(new CalendarOutfit());
             }
@@ -64,7 +64,7 @@ namespace armari
             for (int n = 0; n < size; ++n)
             {
                 //ImagePaths.Add(Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[n].Top + ".png");
-                //Days.Add(Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[n].CreatedDate.ToString("D"));
+                //Days.Add(Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[n].getCreatedDate().ToString("D"));
                 Outfits.Add(Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[n]);
             }
         }
@@ -87,7 +87,7 @@ namespace armari
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as CalendarCollectionViewCell;
             //cell.Title = Numbers[(int)indexPath.Item].ToString();
-            cell.Title = Outfits[(int)indexPath.Item].CreatedDate.ToString("D");
+            cell.Title = Outfits[(int)indexPath.Item].getCreatedDate().ToString("D");
             //cell.Image = UIImage.FromBundle(ImagePaths[(int)indexPath.Item]);
             cell.Image = ClassIcons.NoOufitDay;
             //cell.CellImage.Layer.BorderWidth = 0;
