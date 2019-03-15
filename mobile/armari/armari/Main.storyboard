@@ -19,6 +19,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" colorSpace="calibratedRGB" red="0.996078431372549" green="0.78431372549019607" blue="0.12941176470588237" alpha="1"/>
+                        <color key="selectedImageTintColor" colorSpace="calibratedRGB" red="0.92941176470588238" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </tabBar>
                     <connections>
                         <segue id="6965" destination="6865" kind="relationship" relationship="viewControllers"/>
@@ -38,7 +39,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6867">
                         <rect key="frame" x="0.0" y="20" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" colorSpace="calibratedRGB" red="0.83921568627450982" green="0.45098039215686275" blue="0.14117647058823529" alpha="1"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" colorSpace="calibratedRGB" red="0.996078431372549" green="0.78431372549019607" blue="0.12549019607843137" alpha="1"/>
+                        </textAttributes>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </navigationBar>
                     <tabBarItem key="tabBarItem" id="6964" selectedImage="images/icons/icon_camera_selected.png" title="New Item" image="images/icons/icon_camera_unselected.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -78,6 +82,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                         </subviews>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </view>
                     <connections>
                         <outlet property="AddItemView" destination="7161" id="name-outlet-7161"/>
@@ -120,7 +125,6 @@
                             <view key="titleView" contentMode="scaleToFill" id="8614" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" opaque="NO">
                                 <rect key="frame" x="0.0" y="77" width="414" height="659"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="8768" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" image="images/camera-outline.png">
                                         <rect key="frame" x="87" y="245" width="240" height="169"/>
@@ -141,6 +145,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                             </view>
                         </subviews>
                     </view>
@@ -161,6 +166,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="11774">
                         <rect key="frame" x="0.0" y="20" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" colorSpace="calibratedRGB" red="0.996078431372549" green="0.78431372549019607" blue="0.12941176470588237" alpha="1"/>
+                        </textAttributes>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </navigationBar>
                     <tabBarItem key="tabBarItem" id="11773" title="View Closet" image="images/icons/icon_closet_unselected.png" selectedImage="images/icons/icon_closet_selected.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -349,6 +358,7 @@
                             <outlet property="dataSource" destination="25760" id="25763"/>
                             <outlet property="delegate" destination="25760" id="25764"/>
                         </connections>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </collectionView>
                     <navigationItem title="Title" id="25761" key="navigationItem"/>
                     <connections>
@@ -437,7 +447,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="45375">
                         <rect key="frame" x="0.0" y="20" width="414" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" colorSpace="calibratedRGB" red="0.83921568627450982" green="0.45098039215686275" blue="0.14117647058823529" alpha="1"/>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
+                        </textAttributes>
                     </navigationBar>
                     <tabBarItem key="tabBarItem" title="Calendar" id="45427" selectedImage="images/icons/icon_calendar_selected.png" image="images/icons/icon_calendar_unselected.png"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -460,14 +473,14 @@
                             <size key="itemSize" width="195" height="220"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="45388" customClass="CalendarCollectionViewCell" reuseIdentifier="Cell">
-                                <rect key="frame" x="0.0" y="70" width="195" height="220"/>
+                                <rect key="frame" x="0.0" y="0.0" width="195" height="220"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="70" width="195" height="220"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="195" height="220"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="45851" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
@@ -625,6 +638,7 @@
                             <outlet property="dataSource" destination="54410" id="54415"/>
                             <outlet property="delegate" destination="54410" id="54416"/>
                         </connections>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </collectionView>
                     <navigationItem title="Title" id="54412" key="navigationItem">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="58044">
@@ -671,17 +685,17 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="55211">
-                                    <size key="itemSize" width="196" height="220"/>
+                                    <size key="itemSize" width="196" height="213"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="55204" customClass="DayCollectionViewCell" reuseIdentifier="Cell">
-                                        <rect key="frame" x="0.0" y="0.0" width="196" height="220"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="196" height="213"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="196" height="220"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="196" height="213"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="55206" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
@@ -721,6 +735,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
+                        <color key="tintColor" colorSpace="calibratedRGB" red="0.92549019607843142" green="0.63921568627450975" blue="0.11372549019607843" alpha="1"/>
                     </view>
                     <connections>
                         <outlet property="DayCollectionView_" destination="55200" id="name-outlet-55200"/>
@@ -784,6 +799,12 @@
     </scenes>
     <resources>
         <image name="images/camera-outline.png" width="980" height="748"/>
+        <image name="images/icons/icon_calendar_selected.png" width="30" height="30"/>
+        <image name="images/icons/icon_calendar_unselected.png" width="30" height="30"/>
+        <image name="images/icons/icon_camera_selected.png" width="30" height="30"/>
+        <image name="images/icons/icon_camera_unselected.png" width="30" height="30"/>
+        <image name="images/icons/icon_closet_selected.png" width="30" height="30"/>
+        <image name="images/icons/icon_closet_unselected.png" width="30" height="30"/>
     </resources>
     <color key="tintColor" colorSpace="calibratedRGB" red="0.996078431372549" green="0.78431372549019607" blue="0.12941176470588237" alpha="1"/>
 </document>

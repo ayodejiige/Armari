@@ -25,21 +25,6 @@ namespace armari
             CollectionView = collectionView;
 
             UpdateSource();
-
-            //Days.Add(CalendarDateHandler.GetListOfDays(1)[0]);
-
-            //ImagePaths.Add("outfitCollection_1.png");
-            //ImagePaths.Add("outfitCollection_2.png");
-            //ImagePaths.Add("item_5.png");
-            //ImagePaths.Add("outfitIcon_1.png");
-
-            // Init numbers collection
-            //for (int n = 0; n < size; ++n)
-            //{
-            //    Numbers.Add(n);
-    
-
-                      //Numbers.Add(0);
         }
         #endregion
 
@@ -97,7 +82,7 @@ namespace armari
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as CalendarCollectionViewCell;
             //cell.Title = Numbers[(int)indexPath.Item].ToString();
-            cell.Title = Outfits[(int)indexPath.Item].getCreatedDate().ToString("D");
+            cell.Title = Outfits[(int)indexPath.Item].getCreatedDate().ToString("ddd, dd MMMM");
             //cell.Image = UIImage.FromBundle(ImagePaths[(int)indexPath.Item]);
             cell.Image = ClassIcons.NoOufitDay;
             //cell.CellImage.Layer.BorderWidth = 0;
