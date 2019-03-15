@@ -13,6 +13,7 @@ namespace armari
     //using WardrobeResponseAll = Dictionary<string, List<string>>;
     public partial class DayCollectionViewController : UIViewController
     {
+        static Random rand = new Random();
         public static CalendarOutfit outfit;
 
         public DayCollectionViewController(IntPtr handle) : base(handle)
@@ -35,15 +36,27 @@ namespace armari
             await Task.Factory.StartNew(() =>
             {
                 //Dictionary<string, List<string>> res = Application.mh.GetWardrobeAll();
-                //List<string> layers = new List<string>() { "2736", "2737", "2739", "2740", "2772", "2773", "2782" };
-                //List<string> tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747", "2767", "2774", "2777", "2778", "2779", "2780", "2781", "3764" };
-                //List<string> bottoms = new List<string>() { "2749", "2750", "2751", "2752", "2768", "2769", "2771", "2775", "2776" };
-                //List<string> footwear = new List<string>() { "2759", "2760", "2761" };
+                List<string> layers = new List<string>();
+                List<string> tops = new List<string>();
+                List<string> bottoms = new List<string>();
+                List<string> footwear = new List<string>();
 
-                List<string> layers = new List<string>() { "2736", "2737", "2739", "2740"};
-                List<string> tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747", "2767" };
-                List<string> bottoms = new List<string>() { "2749", "2750", "2751", "2752" };
-                List<string> footwear = new List<string>() { "2759", "2760" };
+                int tryn = rand.Next(2);
+
+                if(tryn == 1)
+                {
+                    layers = new List<string>() { "2772", "2773", "2782" };
+                    tops = new List<string>() { "2767", "2774", "2777", "2778", "2779", "2780", "2781", "3764" };
+                    bottoms = new List<string>() { "2768", "2769", "2771", "2776" };
+                    footwear = new List<string>() { "3765" };
+                }
+                else
+                {
+                    layers = new List<string>() { "2736", "2737", "2739", "2740" };
+                    tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747", "2767" };
+                    bottoms = new List<string>() { "2749", "2750", "2751", "2752" };
+                    footwear = new List<string>() { "2759", "2760" };
+                }
 
                 var generator = new OutfitGenerator(layers, tops, bottoms, footwear);
                 outfit = generator.GenerateOutfit(outfit);

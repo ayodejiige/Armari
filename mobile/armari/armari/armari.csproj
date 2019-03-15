@@ -324,6 +324,7 @@
     <BundleResource Include="Resources\images\icons\icon_user_unselected.png" />
     <BundleResource Include="Resources\images\icons\user90.png" />
     <BundleResource Include="Resources\images\icons\user90s.png" />
+    <BundleResource Include="Resources\images\tmp\armari_3765.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
