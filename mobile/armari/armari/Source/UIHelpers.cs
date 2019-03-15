@@ -34,7 +34,7 @@ namespace armari
             ["Skirt"] = UIImage.FromFile("images/classes/skirt icon.png"),
             ["Sweater"] = UIImage.FromFile("images/classes/sweater icon.png"),
             ["Tee"] = UIImage.FromFile("images/classes/tee Icon.jpg"),
-            ["Footwear"] = UIImage.FromFile("images/classes/tee Icon.jpg"),
+            ["Footwear"] = UIImage.FromFile("images/classes/Shoes.png"),
             ["Dangling"] = UIImage.FromFile("images/classes/return icon 2.png")
         };
         public static UIImage ClosetUnselected = UIImage.FromFile("images/closet_unselected.png");

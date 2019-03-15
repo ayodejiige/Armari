@@ -12,6 +12,7 @@ namespace armari
         #region Computed Properties
         private ClassCollectionView CollectionView { get; set; }
         public List<int> Ids { get; set; } = null;
+        public List<UIImage> Images { get; set; } = null;
         #endregion
 
         #region Constructors
@@ -20,12 +21,24 @@ namespace armari
             // Initialize
             CollectionView = collectionView;
             Ids = CollectionView.Ids;
+            Images = new List<UIImage>();
+            foreach (var id in Ids)
+            {
+                string filename = Path.Combine(Application.folderPath, Application.fileName + id + ".png");
+                Images.Add(UIImage.FromFile(filename));
+            }
         }
         #endregion
 
         public void SetIds(List<int> ids)
         {
             Ids = ids;
+            Images = new List<UIImage>();
+            foreach (var id in Ids)
+            {
+                string filename = Path.Combine(Application.folderPath, Application.fileName + id + ".png");
+                Images.Add(UIImage.FromFile(filename));
+            }
         }
 
         #region Override Methods
@@ -46,8 +59,8 @@ namespace armari
             // Get a reusable cell and set {~~it's~>its~~} title from the item
             Application.logger.Message(string.Format("Loading cell {0} -> {1}", indexPath.Item, Ids[(int)indexPath.Item]));
             var cell = collectionView.DequeueReusableCell("Cell", indexPath) as ClassCollectionViewCell;
-            string filename = Path.Combine(Application.folderPath, Application.fileName + Ids[(int)indexPath.Item] + ".png");
-            UIImage image = UIImage.FromFile(filename);
+            //string filename = Path.Combine(Application.folderPath, Application.fileName + Ids[(int)indexPath.Item] + ".png");
+            UIImage image = Images[(int)indexPath.Item];
             if (image == null)
             {
                 cell.Icon = ClassIcons.Icons["Shorts"];

@@ -26,10 +26,6 @@ namespace armari
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton GenerateButton { get; set; }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton SelectButton { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
             if (DayCollectionView_ != null) {
@@ -45,11 +41,6 @@ namespace armari
             if (GenerateButton != null) {
                 GenerateButton.Dispose ();
                 GenerateButton = null;
-            }
-
-            if (SelectButton != null) {
-                SelectButton.Dispose ();
-                SelectButton = null;
             }
         }
     }

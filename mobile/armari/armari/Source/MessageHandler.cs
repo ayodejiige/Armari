@@ -6,13 +6,20 @@ using System.Threading.Tasks;
 
 namespace armari
 {
-    using WardrobeResponseAll = Dictionary<string, List<int>>;
+    //using WardrobeResponseAll = Dictionary<string, List<string>>;
 
     public struct Cloth
     {
         public string type;
     }
 
+    //public struct WardrobeResponseAll
+    //{
+    //    public List<int> Layer;
+    //    public List<int> Top;
+    //    public List<int> Bottom;
+    //    public List<int> Footwear;
+    //}
     public struct Status
     {
         public Int16 status;
@@ -39,7 +46,10 @@ namespace armari
         public List<int> ids;
     }
 
-
+    public struct WardrobeResponseAll
+    {
+        public List<string> ids;
+    }
 
     public struct SelectItemReq
     {
@@ -72,8 +82,9 @@ namespace armari
         private ManualResetEvent m_statusEvent;
         private ManualResetEvent m_wardrobeEvent;
         private Logger m_logger = Logger.Instance;
+        //private static WardrobeResponseAll AllItems;
 
-        private static readonly int s_timeOut = 4000;
+        private static readonly int s_timeOut = 5000;
         private static readonly string s_locationTopic = "/wardrobe/location";
         private static readonly string s_newItemInitTopic = "/wardrobe/new/init";
         private static readonly string s_retrieveItemInitTopic = "/wardrobe/retrieve/init";
@@ -86,7 +97,7 @@ namespace armari
         private Location m_locationResponse;
         private Response m_currentResponse;
         private WardrobeResponse m_wardrobeResponse;
-        private WardrobeResponseAll m_wardrobeResponseAll;
+        private Dictionary<string, List<string>> m_wardrobeResponseAll;
         private string m_currentService = "";
 
         public MessageHandler(string id)
@@ -129,12 +140,17 @@ namespace armari
         public void WardrobeAllCallback(byte[] payload)
         {
             string result = System.Text.Encoding.UTF8.GetString(payload);
-            m_wardrobeResponseAll = JsonConvert.DeserializeObject<WardrobeResponseAll>(result);
-            m_wardrobeEvent.Set();
+            var ans = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(result);
+            m_wardrobeResponseAll = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(result);
+            
+            
+            //for (int i = 0; i < m_wardrobeResponseAll.Count; i++)
+            //{
+            //    Console.WriteLine("Key: {0}", m_wardrobeResponseAll.Keys);
+            //}
             m_logger.Message(string.Format("Wardrobe Callback {0}", result));
+            m_wardrobeEvent.Set();
         }
-
-       
 
         public List<int> GetWardrobe(string type)
         {
@@ -150,6 +166,7 @@ namespace armari
             m_mqttH.Publish(sendTopic, payload);
 
             // Wait for location from raspi
+            m_wardrobeEvent.Reset();
             bool res = m_wardrobeEvent.WaitOne(s_timeOut);
             m_wardrobeEvent.Reset();
             m_mqttH.Unsubscribe(sendTopic);
@@ -165,7 +182,7 @@ namespace armari
 
         }
 
-        public WardrobeResponseAll GetWardrobeAll()
+        public Dictionary<string, List<string>> GetWardrobeAll()
         {
             string recvTopic = Application.USERID + "/wardrobe/get/items";
             string sendTopic = Application.USERID + "/wardrobe/get";
@@ -189,7 +206,7 @@ namespace armari
             }
             else
             {
-                return null;
+                return new Dictionary<string, List<string>>();
             }
 
         }

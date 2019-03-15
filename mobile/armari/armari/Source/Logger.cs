@@ -30,18 +30,18 @@ namespace armari
         public void Message(string msg)
         {
             //MessageUpdated(this, new EventArgsT<string>(msg));
-            string name = "";
-            UIApplication.SharedApplication.InvokeOnMainThread(() => {
-                var window = UIApplication.SharedApplication.KeyWindow;
-                var vc = window.RootViewController;
-                while (vc.PresentedViewController != null)
-                {
-                    vc = vc.PresentedViewController;
-                }
-                name = vc.GetType().Name;
-            });
+            //string name = "";
+            //UIApplication.SharedApplication.InvokeOnMainThread(() => {
+            //    var window = UIApplication.SharedApplication.KeyWindow;
+            //    var vc = window.RootViewController;
+            //    while (vc.PresentedViewController != null)
+            //    {
+            //        vc = vc.PresentedViewController;
+            //    }
+            //    name = vc.GetType().Name;
+            //});
 
-            Console.WriteLine("{0} INFO: ARMARI -> {1}", name, msg);
+            Console.WriteLine("{0} INFO: ARMARI -> {1}", "", msg);
         }
 
         public void Error(string title, string msg)

@@ -6,9 +6,11 @@ using System.Windows.Input;
 using CoreGraphics;
 using UIKit;
 using Foundation;
+using System.Threading.Tasks;
 
 namespace armari
 {
+    //using WardrobeResponseAll = Dictionary<string, List<string>>;
     public partial class DayCollectionViewController : UIViewController
     {
         public static CalendarOutfit outfit;
@@ -22,6 +24,31 @@ namespace armari
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
+            GenerateButton.TouchUpInside += GenerateButton_TouchUpInside;
+
+
+        }
+
+        async void GenerateButton_TouchUpInside(object sender, EventArgs e)
+        {
+            this.StartLoadingOverlay();
+            await Task.Factory.StartNew(() =>
+            {
+                //Dictionary<string, List<string>> res = Application.mh.GetWardrobeAll();
+                List<string> layers = new List<string>() {"2736", "2737", "2739", "2740"};
+                List<string> tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747" };
+                List<string> bottoms = new List<string>() { "2749", "2750", "2751", "2752" };
+                List<string> footwear = new List<string>() { "2759", "2760" };
+
+                var generator = new OutfitGenerator(layers, tops, bottoms, footwear);
+                outfit = generator.GenerateOutfit(outfit);
+            });
+
+            var source_ = DayCollectionView_.DataSource as DayCollectionSource;
+            source_.UpdateSource();
+            DayCollectionView_.ReloadData();
+
+            this.StopLoadingOverlay();
         }
 
         private void AddView()

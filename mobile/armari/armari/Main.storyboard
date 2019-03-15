@@ -467,7 +467,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="45851" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                            <rect key="frame" x="0.0" y="28" width="195" height="192"/>
+                                            <rect key="frame" x="13" y="33" width="169" height="169"/>
                                             <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinX="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
@@ -644,14 +644,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="55212" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="45" y="654" width="59" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="55213" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="283" y="654" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="654" width="414" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <state key="normal" title="Generate"/>
                             </button>
                             <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="55200" customClass="DayCollectionView" fixedFrame="YES">
@@ -673,8 +668,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="55206" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                                    <rect key="frame" x="0.0" y="32" width="196" height="188"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <rect key="frame" x="14" y="41" width="169" height="169"/>
+                                                    <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
                                                             <real key="value" value="20"/>
@@ -706,7 +701,6 @@
                     </view>
                     <connections>
                         <outlet property="DayCollectionView_" destination="55200" id="name-outlet-55200"/>
-                        <outlet property="SelectButton" destination="55212" id="name-outlet-55212"/>
                         <outlet property="GenerateButton" destination="55213" id="name-outlet-55213"/>
                     </connections>
                 </viewController>
