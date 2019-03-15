@@ -25,6 +25,8 @@ class CompartmentType(enum.Enum):
     HANGER=1
     FOOTWEAR=2
 
+
+
 compartment_dict ={
     "Blouse" : CompartmentType.FOLDABLE,
     "Cardigan": CompartmentType.FOLDABLE,
@@ -34,7 +36,21 @@ compartment_dict ={
     "Shorts": CompartmentType.FOLDABLE,
     "Skirt": CompartmentType.FOLDABLE,
     "Sweater": CompartmentType.HANGER,
-    "Tee": CompartmentType.FOLDABLE
+    "Tee": CompartmentType.FOLDABLE,
+    "Footwear": CompartmentType.FOOTWEAR
+}
+
+section_dict ={
+    "Blouse" : "Top",
+    "Cardigan": "Layer",
+    "Hoodie": "Layer",
+    "Jackets": "Layer",
+    "Jeans": "Bottom",
+    "Shorts": "Bottom",
+    "Skirt": "Bottom",
+    "Sweater": "Layer",
+    "Tee": "Top",
+    "Footwear": "Footwear"
 }
 
 class User(db.Model):
@@ -114,7 +130,7 @@ class Wardrobe(db.Model):
         
         return count
 
-MAX_CLOTHS = 6
+MAX_CLOTHS = 12
 class Compartment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     state = db.Column(db.Enum(CompartmentStates))
@@ -147,7 +163,7 @@ class Compartment(db.Model):
 
     def add_cloth(self, cloth):
         self.clothitems.append(cloth)
-        if len(self.clothitems) > MAX_CLOTHS:
+        if len(self.clothitems) > MAX_CLOTHS and self.state == CompartmentStates.AVAILABLE:
             self.state = CompartmentStates.FULL
         # logic to update state here
     
@@ -157,7 +173,7 @@ class Compartment(db.Model):
     
     def remove_cloth(self, cloth):
         self.clothitems.remove(cloth)
-        if self.state== CompartmentStates.AVAILABLE and len(self.clothitems) < MAX_CLOTHS:
+        if self.state == CompartmentStates.FULL and len(self.clothitems) < MAX_CLOTHS:
             self.state = CompartmentStates.AVAILABLE
 
 class Position(db.Model):
@@ -170,11 +186,12 @@ class Position(db.Model):
 class ClothingItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(80), nullable=False)
+    section = db.Column(db.String(80), nullable=False)
     compartment_id = db.Column(db.Integer, db.ForeignKey('compartment.id'),
         nullable=False)
     
     def __repr__(self):
-        ret = '\t\t\t<id %d> <type %s>' %(self.id, self.type)
+        ret = '\t\t\t<id %d> <type %s> <section %s>' %(self.id, self.type, self.section)
         return ret
     
     def get_compartment(self):
@@ -215,14 +232,11 @@ class DBManager(object):
         return compartment
 
     def new_cloth(self, compartment, cloth_type):
-        cloth = ClothingItem(type=cloth_type)
+        cloth = ClothingItem(type=cloth_type, section=section_dict[cloth_type])
         compartment.add_cloth(cloth)
         db.session.commit()
 
         return cloth.id
-
-    def return_cloth(self, cloth_id):
-        pass
 
     def retrieve_cloth(self, cloth_id):
         cloth = ClothingItem.query.filter_by(id=cloth_id).first()
@@ -252,7 +266,7 @@ class DBManager(object):
     def get_dangling_cloths(self):
         compartment = Compartment.query.filter_by(state=CompartmentStates.DANGLING).first()
         cloth_items = compartment.clothitems
-        print (cloth_items)
+        # print (cloth_items)
         ids = []
         for cloth in cloth_items:
             ids.append(cloth.id)
@@ -268,6 +282,32 @@ class DBManager(object):
             ids.append(cloth.id)
 
         return ids
+    
+    def get_cloth_by_section(self, cloth_section):
+        cloth_items = ClothingItem.query.filter_by(section=cloth_section).all()
+        ids = []
+        for cloth in cloth_items:
+            # if cloth. get_compartment().state == CompartmentStates.DANGLING:
+            #     continue
+            ids.append(cloth.id)
+
+        return ids
+    
+    def get_cloths(self):
+        res = {}
+        cloth_items = ClothingItem.query.all()
+        ids = []
+        for cloth in cloth_items:
+            # if cloth. get_compartment().state == CompartmentStates.DANGLING:
+            #     res["dangling"].append(cloth.id)
+            # else:
+            cloth_type = cloth.section
+            if cloth_type in res.keys():
+                res[cloth_type].append(cloth.id)
+            else:
+                res[cloth_type] = [cloth.id]
+            
+        return res
     
     def get_cloth_type(self, cloth_id):
         cloth_type = ClothingItem.query.filter_by(id=cloth_id).first().type
@@ -306,7 +346,7 @@ def init():
     db.session.commit()
 
 def main():
-    init()
+    # init()
     manager = DBManager(1)
     manager.print_user()
     print(manager.get_dangling_cloths())

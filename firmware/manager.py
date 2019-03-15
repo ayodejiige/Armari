@@ -22,6 +22,13 @@ class Manager(object):
     _PORT = 1883
 
     _WAREDROBE_TOPIC="%s/wardrobe/"
+    _WORD = {
+        (0, 0): "Left",
+        (0, 1): "Bottom Right",
+        (1, 1): "Middle Right",
+        (2, 0): "Top Right"
+    }
+    _sections = ["Top", "Bottom", "Layer"]
     def __init__(self):
         if IS_PI:
             self._led = LedController()
@@ -45,11 +52,14 @@ class Manager(object):
         rc = 0
         while rc == 0:
             rc = self._mqttc.loop()
-    
-    def _set_leds(self, poss, val):
+
+    def _set_leds(self, poss, val, blink=0):
+        if len(poss) > 0:
+            cmd = "say check %s compartment" %(self._WORD[(poss[0].x, poss[0].y)])
+            # os.system(cmd)
         for pos in poss:
            if IS_PI:
-            self._led.set_pixel(pos.x, pos.y, val)
+            self._led.set_pixel(pos.x, pos.y, val, blink)
 
     def _pos_payload(self, poss):
         res = {"locs":[]}
@@ -60,6 +70,7 @@ class Manager(object):
         return res
 
     def new_item_init(self, obj, user_id, payload):
+        self._insert_event.clear()
         cloth_type = payload["type"]
         compartment =  self._db_manager.get_compartment(cloth_type)
         if compartment is None:
@@ -96,6 +107,7 @@ class Manager(object):
         self._insert_event.set()
     
     def retrieve_item(self, obj, user_id, payload):
+        self._retrieve_event.clear()
         cloth_id = payload["id"]
         cloth = self._db_manager.retrieve_cloth(cloth_id)
         compartment = cloth.get_compartment()
@@ -105,7 +117,7 @@ class Manager(object):
         x = 0
         y = 1
         # Turn on led
-        self._set_leds(compartment.positions, 1)
+        self._set_leds(compartment.positions, 1, 1)
 
         payload_ = self._pos_payload(compartment.positions)
         topic = "%s/wardrobe/location" %user_id
@@ -133,6 +145,7 @@ class Manager(object):
         self._retrieve_event.set()
 
     def return_item(self, obj, user_id, payload):
+        self._return_event.clear()
         cloth_id = payload["id"]
         cloth_type = self._db_manager.get_cloth_type(cloth_id)
         compartment =  self._db_manager.get_compartment(cloth_type)
@@ -140,7 +153,7 @@ class Manager(object):
             return
 
         # Turn on led
-        self._set_leds(compartment.positions, 1)
+        self._set_leds(compartment.positions, 1, 1)
         payload_ = self._pos_payload(compartment.positions)
         topic = "%s/wardrobe/location" %user_id
         self._mqttc.publish(topic, payload_)
@@ -184,11 +197,17 @@ class Manager(object):
         ids = []
         if cloth_type == "Dangling":
             ids = self._db_manager.get_dangling_cloths()
-            print(ids)
+            payload = {"ids": ids}
+        elif cloth_type in self._sections:
+            ids = self._db_manager.get_cloth_by_section(cloth_type)
+            payload = {"ids": ids}
         elif cloth_type != "all":
             ids = self._db_manager.get_cloth_by_type(cloth_type)
+            payload = {"ids": ids}
+        elif cloth_type == "all":
+            payload = self._db_manager.get_cloths()
         
-        payload = {"ids": ids}
+        # payload = {"ids": ids}
         topic = "%s/wardrobe/get/items" %user_id
         self._mqttc.publish(topic, payload)
     
