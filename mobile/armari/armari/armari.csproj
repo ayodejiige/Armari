@@ -65,7 +65,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer: ayodeji18@outlook.com (HVNC857JVP)</CodesignKey>
+    <CodesignKey>iPhone Developer: melopezn95@gmail.com (7QLJJ72P6J)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -77,7 +77,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>iOS Team Provisioning Profile: com.xamarin.armari</CodesignProvision>
+    <CodesignProvision>iOS Team Provisioning Profile: com.armari.armari</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,6 +130,7 @@
     <Folder Include="DayCollection\" />
     <Folder Include="Resources\armari.mlmodelc\neural_network_optionals\" />
     <Folder Include="Resources\images\tmp\" />
+    <Folder Include="Resources\images\icons\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -307,6 +308,22 @@
     <BundleResource Include="Resources\images\tmp\armari_2778.png" />
     <BundleResource Include="Resources\images\tmp\armari_2782.png" />
     <BundleResource Include="Resources\images\classes\Shoes.png" />
+    <BundleResource Include="Resources\images\icons\cal90.png" />
+    <BundleResource Include="Resources\images\icons\cal90s.png" />
+    <BundleResource Include="Resources\images\icons\cam90.png" />
+    <BundleResource Include="Resources\images\icons\cam90s.png" />
+    <BundleResource Include="Resources\images\icons\closet90.png" />
+    <BundleResource Include="Resources\images\icons\closet90s.png" />
+    <BundleResource Include="Resources\images\icons\icon_calendar_selected.png" />
+    <BundleResource Include="Resources\images\icons\icon_calendar_unselected.png" />
+    <BundleResource Include="Resources\images\icons\icon_camera_selected.png" />
+    <BundleResource Include="Resources\images\icons\icon_camera_unselected.png" />
+    <BundleResource Include="Resources\images\icons\icon_closet_selected.png" />
+    <BundleResource Include="Resources\images\icons\icon_closet_unselected.png" />
+    <BundleResource Include="Resources\images\icons\icon_user_selected.png" />
+    <BundleResource Include="Resources\images\icons\icon_user_unselected.png" />
+    <BundleResource Include="Resources\images\icons\user90.png" />
+    <BundleResource Include="Resources\images\icons\user90s.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
