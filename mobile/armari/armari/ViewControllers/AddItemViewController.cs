@@ -11,7 +11,6 @@ namespace armari
     {
         private CameraController cam;
         private Classifier classifier;
-        private Logger logger;
         private string currentClass;
 
         protected AddItemViewController(IntPtr handle) : base(handle)
@@ -26,9 +25,6 @@ namespace armari
             base.ViewDidLoad();
 
             // Setup Logger
-            logger = Logger.Instance;
-            logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
-            logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
             this.ShowMessage("View Loaded");
 
             // Setup Camera
@@ -59,7 +55,7 @@ namespace armari
                 message += $"{desc} : {prob.ToString("P") }\n";
             }
 
-            logger.Message(message);
+            this.ShowMessage(message);
 
             return classes;
         }

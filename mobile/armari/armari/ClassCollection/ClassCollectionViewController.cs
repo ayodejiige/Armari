@@ -67,10 +67,10 @@ namespace armari
                     case 1:
                         id = DayCollectionViewController.outfit.Top;
                         break;
-                    case 3:
+                    case 2:
                         id = DayCollectionViewController.outfit.Bottom;
                         break;
-                    case 4:
+                    case 3:
                         id = DayCollectionViewController.outfit.Footwear;
                         break;
                     default:

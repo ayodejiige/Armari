@@ -5,7 +5,6 @@ namespace armari
 {
     public partial class ChangeTypeViewController : UICollectionViewController
     {
-        private Logger logger;
 
         protected ChangeTypeViewController(IntPtr handle) : base(handle)
         {
@@ -17,10 +16,6 @@ namespace armari
             base.ViewDidLoad();
 
             // Setup Logger
-            logger = Logger.Instance;
-            logger.ErrorOccurred += (s, e) => this.ShowAlert("Processing Error", e.Value);
-            logger.MessageUpdated += (s, e) => this.ShowMessage(e.Value);
-            logger.Message("View Loaded");
             // Perform any additional setup after loading the view, typically from a nib.
         }
 

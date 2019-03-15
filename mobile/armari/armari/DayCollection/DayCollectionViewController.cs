@@ -35,8 +35,13 @@ namespace armari
             await Task.Factory.StartNew(() =>
             {
                 //Dictionary<string, List<string>> res = Application.mh.GetWardrobeAll();
-                List<string> layers = new List<string>() {"2736", "2737", "2739", "2740"};
-                List<string> tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747" };
+                //List<string> layers = new List<string>() { "2736", "2737", "2739", "2740", "2772", "2773", "2782" };
+                //List<string> tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747", "2767", "2774", "2777", "2778", "2779", "2780", "2781", "3764" };
+                //List<string> bottoms = new List<string>() { "2749", "2750", "2751", "2752", "2768", "2769", "2771", "2775", "2776" };
+                //List<string> footwear = new List<string>() { "2759", "2760", "2761" };
+
+                List<string> layers = new List<string>() { "2736", "2737", "2739", "2740"};
+                List<string> tops = new List<string>() { "2741", "2742", "2743", "2744", "2745", "2746", "2747", "2767" };
                 List<string> bottoms = new List<string>() { "2749", "2750", "2751", "2752" };
                 List<string> footwear = new List<string>() { "2759", "2760" };
 

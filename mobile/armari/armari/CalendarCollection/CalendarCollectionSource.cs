@@ -51,10 +51,20 @@ namespace armari
             if (size == 0)
             {
                 Application.UniversalCalentarLogger.AddOutfit(new CalendarOutfit());
-
             }
-            
-            if (Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits[0].getCreatedDate() != DateTime.Today) 
+
+            var outfits = Application.UniversalCalentarLogger.MyCalendarOutfitContainer.Outfits;
+            bool generateToday = true;
+            foreach(var outfit in outfits)
+            {
+                if (outfit.getCreatedDate() == DateTime.Today)
+                {
+                    Application.logger.Message("Today Exists");
+                    generateToday = false;
+                }
+            }
+
+            if (generateToday)
             {
                 Application.UniversalCalentarLogger.AddOutfit(new CalendarOutfit());
             }
